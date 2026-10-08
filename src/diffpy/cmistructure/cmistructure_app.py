@@ -7,7 +7,8 @@ def main():
     parser = argparse.ArgumentParser(
         prog="diffpy.cmistructure",
         description=(
-            "diffpy.cmi package for doing refinements with structure objects\n\n"
+            "diffpy.cmi package for doing refinements with "
+            "structure objects\n\n"
             "For more information, visit: "
             "https://github.com/diffpy/diffpy.cmistructure/"
         ),

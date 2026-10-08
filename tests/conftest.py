@@ -1,3 +1,4 @@
+import importlib.resources
 import json
 from pathlib import Path
 
@@ -17,3 +18,14 @@ def user_filesystem(tmp_path):
         json.dump(home_config_data, f)
 
     yield tmp_path
+
+
+@pytest.fixture(scope="session")
+def datafile():
+    """Fixture to load a test data file from the testdata package
+    directory."""
+
+    def _datafile(filename):
+        return importlib.resources.files("tests.testdata").joinpath(filename)
+
+    return _datafile
