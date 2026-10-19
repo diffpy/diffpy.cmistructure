@@ -1,0 +1,493 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>diffpy.cmistructure.cctbxparset &mdash; diffpy.cmistructure 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=38b66d78"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=cca77546"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            diffpy.cmistructure
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting-started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/diffpy.cmistructure.html">Package API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">diffpy.cmistructure</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../cmistructure.html">diffpy.cmistructure</a></li>
+      <li class="breadcrumb-item active">diffpy.cmistructure.cctbxparset</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for diffpy.cmistructure.cctbxparset</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1">##############################################################################</span>
+<span class="c1">#</span>
+<span class="c1"># (c) 2009 The Trustees of Columbia University in the City of New York.</span>
+<span class="c1"># (c) 2026 Contributors to diffpy.cmistructure.</span>
+<span class="c1"># All rights reserved.</span>
+<span class="c1">#</span>
+<span class="c1"># File coded by: Chris Farrow and members of the diffpy community.</span>
+<span class="c1">#</span>
+<span class="c1"># Originally developed in diffpy.srfit by the DANSE Diffraction group and</span>
+<span class="c1"># Simon J. L. Billinge.</span>
+<span class="c1">#</span>
+<span class="c1"># See GitHub contributions for a more detailed list of contributors.</span>
+<span class="c1"># https://github.com/diffpy/diffpy.cmistructure/graphs/contributors</span>
+<span class="c1">#</span>
+<span class="c1"># See LICENSE.rst and LICENSE_DANSE.rst for license information.</span>
+<span class="c1">#</span>
+<span class="c1">##############################################################################</span>
+<span class="sd">"""Wrappers for interfacing cctbx crystal with SrFit.</span>
+
+<span class="sd">This wraps a cctbx.crystal as a ParameterSet with a similar hierarchy, which</span>
+<span class="sd">can then be used within a FitRecipe. Note that all manipulations to the</span>
+<span class="sd">cctbx.crystal should be done before wrapping. Changes made to the cctbx.crystal</span>
+<span class="sd">object after wrapping may not be reflected within the wrapper, which can have</span>
+<span class="sd">unpredictable results during a structure refinement.</span>
+
+<span class="sd">The following classes are adapted:</span>
+
+<span class="sd">- `CCTBXCrystalParSet`: wrapper for `cctbx.crystal`.</span>
+<span class="sd">- `CCTBXUnitCellParSet`: wrapper for the unit cell of `cctbx.crystal`.</span>
+<span class="sd">- `CCTBXScattererParSet`: wrapper for `cctbx.xray.scatterer`.</span>
+<span class="sd">"""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">diffpy.cmistructure.basestructureparset</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseStructureParSet</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">diffpy.srfit.fitbase.parameter</span><span class="w"> </span><span class="kn">import</span> <span class="n">ParameterAdapter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">diffpy.srfit.fitbase.parameterset</span><span class="w"> </span><span class="kn">import</span> <span class="n">ParameterSet</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"CCTBXScattererParSet"</span><span class="p">,</span> <span class="s2">"CCTBXUnitCellParSet"</span><span class="p">,</span> <span class="s2">"CCTBXCrystalParSet"</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="CCTBXScattererParSet">
+<a class="viewcode-back" href="../../../api/diffpy.cmistructure.html#diffpy.cmistructure.cctbxparset.CCTBXScattererParSet">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">CCTBXScattererParSet</span><span class="p">(</span><span class="n">ParameterSet</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Adapt a cctbx.xray.scatterer to the ParameterSet interface.</span>
+
+<span class="sd">    This class derives from ParameterSet.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    name : str</span>
+<span class="sd">        The name of the scatterer. The name is always of the form</span>
+<span class="sd">        "%s%i" % (element, number), where the number is the running</span>
+<span class="sd">        index of that element type (starting at 0).</span>
+<span class="sd">    x, y, z : ParameterAdapter</span>
+<span class="sd">        The atom position in crystal coordinates.</span>
+<span class="sd">    occupancy : ParameterAdapter</span>
+<span class="sd">        The occupancy of the atom on its crystal location.</span>
+<span class="sd">    Uiso : ParameterAdapter</span>
+<span class="sd">        The isotropic displacement factor of the atom.</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">structure_parameter_set</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Initialize the scatterer ParameterSet.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        name : str</span>
+<span class="sd">            The name of this scatterer.</span>
+<span class="sd">        structure_parameter_set : CCTBXCrystalParSet</span>
+<span class="sd">            The CCTBXCrystalParSet that contains the cctbx structure.</span>
+<span class="sd">        index : int</span>
+<span class="sd">            The index of the scatterer in the structure.</span>
+<span class="sd">        """</span>
+        <span class="n">ParameterSet</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">structure_parameter_set</span> <span class="o">=</span> <span class="n">structure_parameter_set</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">index</span>
+
+        <span class="c1"># x, y, z, occupancy</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_parameter</span><span class="p">(</span>
+            <span class="n">ParameterAdapter</span><span class="p">(</span><span class="s2">"x"</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_xyzgetter</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_xyzsetter</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_parameter</span><span class="p">(</span>
+            <span class="n">ParameterAdapter</span><span class="p">(</span><span class="s2">"y"</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_xyzgetter</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_xyzsetter</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_parameter</span><span class="p">(</span>
+            <span class="n">ParameterAdapter</span><span class="p">(</span><span class="s2">"z"</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_xyzgetter</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_xyzsetter</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_parameter</span><span class="p">(</span>
+            <span class="n">ParameterAdapter</span><span class="p">(</span><span class="s2">"occupancy"</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getocc</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_setocc</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_parameter</span><span class="p">(</span>
+            <span class="n">ParameterAdapter</span><span class="p">(</span><span class="s2">"Uiso"</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getuiso</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_setuiso</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="c1"># Getters and setters</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_xyzgetter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">dummy</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">structure_parameter_set</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">scatterers</span><span class="p">()[</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">index</span>
+            <span class="p">]</span><span class="o">.</span><span class="n">site</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">f</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_xyzsetter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">dummy</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+            <span class="n">xyz</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">structure_parameter_set</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">scatterers</span><span class="p">()[</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">index</span>
+                <span class="p">]</span><span class="o">.</span><span class="n">site</span>
+            <span class="p">)</span>
+            <span class="n">xyz</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">structure_parameter_set</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">scatterers</span><span class="p">()[</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">index</span>
+            <span class="p">]</span><span class="o">.</span><span class="n">site</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">xyz</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="k">return</span> <span class="n">f</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_getocc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dummy</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">structure_parameter_set</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">scatterers</span><span class="p">()[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">index</span>
+        <span class="p">]</span><span class="o">.</span><span class="n">occupancy</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_setocc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dummy</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">structure_parameter_set</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">scatterers</span><span class="p">()[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">index</span>
+        <span class="p">]</span><span class="o">.</span><span class="n">occupancy</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">return</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_getuiso</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dummy</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">structure_parameter_set</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">scatterers</span><span class="p">()[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">index</span>
+        <span class="p">]</span><span class="o">.</span><span class="n">u_iso</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_setuiso</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dummy</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">structure_parameter_set</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">scatterers</span><span class="p">()[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">index</span>
+        <span class="p">]</span><span class="o">.</span><span class="n">u_iso</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">return</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_getelem</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">element_symbol</span><span class="p">()</span>
+
+    <span class="n">element</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_getelem</span><span class="p">)</span></div>
+
+
+
+<span class="c1"># End class CCTBXScattererParSet</span>
+
+
+<div class="viewcode-block" id="CCTBXUnitCellParSet">
+<a class="viewcode-back" href="../../../api/diffpy.cmistructure.html#diffpy.cmistructure.cctbxparset.CCTBXUnitCellParSet">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">CCTBXUnitCellParSet</span><span class="p">(</span><span class="n">ParameterSet</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Adapt a cctbx unit_cell to the ParameterSet interface.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    name : str</span>
+<span class="sd">        The name of this ParameterSet, always "unitcell".</span>
+<span class="sd">    a, b, c, alpha, beta, gamma : ParameterAdapter</span>
+<span class="sd">        The unit cell parameters.</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">structure_parameter_set</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Initialize the unit cell ParameterSet.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        structure_parameter_set : CCTBXCrystalParSet</span>
+<span class="sd">            The CCTBXCrystalParSet that contains the cctbx structure</span>
+<span class="sd">            and the unit cell being wrapped.</span>
+<span class="sd">        """</span>
+        <span class="n">ParameterSet</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">"unitcell"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">structure_parameter_set</span> <span class="o">=</span> <span class="n">structure_parameter_set</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_latpars</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">structure_parameter_set</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">unit_cell</span><span class="p">()</span><span class="o">.</span><span class="n">parameters</span><span class="p">()</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_parameter</span><span class="p">(</span>
+            <span class="n">ParameterAdapter</span><span class="p">(</span><span class="s2">"a"</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_latgetter</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_latsetter</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_parameter</span><span class="p">(</span>
+            <span class="n">ParameterAdapter</span><span class="p">(</span><span class="s2">"b"</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_latgetter</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_latsetter</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_parameter</span><span class="p">(</span>
+            <span class="n">ParameterAdapter</span><span class="p">(</span><span class="s2">"c"</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_latgetter</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_latsetter</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_parameter</span><span class="p">(</span>
+            <span class="n">ParameterAdapter</span><span class="p">(</span>
+                <span class="s2">"alpha"</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_latgetter</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_latsetter</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_parameter</span><span class="p">(</span>
+            <span class="n">ParameterAdapter</span><span class="p">(</span>
+                <span class="s2">"beta"</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_latgetter</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_latsetter</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_parameter</span><span class="p">(</span>
+            <span class="n">ParameterAdapter</span><span class="p">(</span>
+                <span class="s2">"gamma"</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_latgetter</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_latsetter</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_latgetter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">dummy</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_latpars</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">f</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_latsetter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">dummy</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_latpars</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">structure_parameter_set</span><span class="o">.</span><span class="n">_update</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">return</span>
+
+        <span class="k">return</span> <span class="n">f</span></div>
+
+
+
+<span class="c1"># End class CCTBXUnitCellParSet</span>
+
+<span class="c1"># FIXME - Special positions should be constant.</span>
+
+
+<div class="viewcode-block" id="CCTBXCrystalParSet">
+<a class="viewcode-back" href="../../../api/diffpy.cmistructure.html#diffpy.cmistructure.cctbxparset.CCTBXCrystalParSet">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">CCTBXCrystalParSet</span><span class="p">(</span><span class="n">BaseStructureParSet</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Adapt a cctbx structure to the ParameterSet interface.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    structure : cctbx.crystal.special_position_settings</span>
+<span class="sd">        The adapted cctbx structure object.</span>
+<span class="sd">    scatterers : list of CCTBXScattererParSet</span>
+<span class="sd">        The scatterer ParameterSets.</span>
+<span class="sd">    unitcell : CCTBXUnitCellParSet</span>
+<span class="sd">        The unit cell ParameterSet for the structure.</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">structure</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Initialize the crystal ParameterSet.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        name : str</span>
+<span class="sd">            The name of this ParameterSet.</span>
+<span class="sd">        structure : cctbx.crystal.special_position_settings</span>
+<span class="sd">            The cctbx structure to adapt.</span>
+<span class="sd">        """</span>
+        <span class="n">ParameterSet</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">structure</span> <span class="o">=</span> <span class="n">structure</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_parameter_set</span><span class="p">(</span><span class="n">CCTBXUnitCellParSet</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scatterers</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="n">cdict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">structure</span><span class="o">.</span><span class="n">scatterers</span><span class="p">():</span>
+            <span class="n">el</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">element_symbol</span><span class="p">()</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="n">cdict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">el</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">sname</span> <span class="o">=</span> <span class="s2">"</span><span class="si">%s%i</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">el</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+            <span class="n">cdict</span><span class="p">[</span><span class="n">el</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">scatterer</span> <span class="o">=</span> <span class="n">CCTBXScattererParSet</span><span class="p">(</span><span class="n">sname</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_parameter_set</span><span class="p">(</span><span class="n">scatterer</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scatterers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">scatterer</span><span class="p">)</span>
+
+        <span class="c1"># Constrain the lattice</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">diffpy.cmistructure.sgconstraints</span><span class="w"> </span><span class="kn">import</span> <span class="n">_constrain_space_group</span>
+
+        <span class="n">symbol</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_space_group</span><span class="p">()</span>
+        <span class="n">_constrain_space_group</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span><span class="p">)</span>
+
+        <span class="k">return</span>
+
+<div class="viewcode-block" id="CCTBXCrystalParSet.update">
+<a class="viewcode-back" href="../../../api/diffpy.cmistructure.html#diffpy.cmistructure.cctbxparset.CCTBXCrystalParSet.update">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Rebuild the unit cell after a change in lattice parameters.</span>
+
+<span class="sd">        Call this function before using the CCTBXCrystalParSet. The unit</span>
+<span class="sd">        cell is only remade if a lattice parameter has changed.</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">structure</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">structure</span>
+        <span class="n">sgn</span> <span class="o">=</span> <span class="n">structure</span><span class="o">.</span><span class="n">space_group</span><span class="p">()</span><span class="o">.</span><span class="n">match_tabulated_settings</span><span class="p">()</span><span class="o">.</span><span class="n">number</span><span class="p">()</span>
+
+        <span class="c1"># Create the symmetry object</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">cctbx.crystal</span><span class="w"> </span><span class="kn">import</span> <span class="n">symmetry</span>
+
+        <span class="n">symm</span> <span class="o">=</span> <span class="n">symmetry</span><span class="p">(</span>
+            <span class="n">unit_cell</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">unitcell</span><span class="o">.</span><span class="n">_latpars</span><span class="p">,</span> <span class="n">space_group_symbol</span><span class="o">=</span><span class="n">sgn</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Now the new structure</span>
+        <span class="n">newstru</span> <span class="o">=</span> <span class="n">structure</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span>
+            <span class="n">crystal_symmetry</span><span class="o">=</span><span class="n">symm</span><span class="p">,</span> <span class="n">scatterers</span><span class="o">=</span><span class="n">structure</span><span class="o">.</span><span class="n">scatterers</span><span class="p">()</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">unitcell</span><span class="o">.</span><span class="n">_latpars</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">newstru</span><span class="o">.</span><span class="n">unit_cell</span><span class="p">()</span><span class="o">.</span><span class="n">parameters</span><span class="p">())</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">structure</span> <span class="o">=</span> <span class="n">newstru</span>
+        <span class="k">return</span></div>
+
+
+<div class="viewcode-block" id="CCTBXCrystalParSet.can_adapt">
+<a class="viewcode-back" href="../../../api/diffpy.cmistructure.html#diffpy.cmistructure.cctbxparset.CCTBXCrystalParSet.can_adapt">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">can_adapt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">structure</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Return whether the structure can be adapted by this class.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        structure : object</span>
+<span class="sd">            The structure object to check.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bool</span>
+<span class="sd">            The flag indicating if `structure` is a</span>
+<span class="sd">            cctbx.crystal.special_position_settings. False if cctbx is</span>
+<span class="sd">            not installed.</span>
+<span class="sd">        """</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">cctbx.crystal</span><span class="w"> </span><span class="kn">import</span> <span class="n">special_position_settings</span>
+        <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">structure</span><span class="p">,</span> <span class="n">special_position_settings</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CCTBXCrystalParSet.get_lattice">
+<a class="viewcode-back" href="../../../api/diffpy.cmistructure.html#diffpy.cmistructure.cctbxparset.CCTBXCrystalParSet.get_lattice">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_lattice</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Return the ParameterSet containing the lattice Parameters.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        CCTBXUnitCellParSet</span>
+<span class="sd">            The unit cell ParameterSet of the structure.</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">unitcell</span></div>
+
+
+<div class="viewcode-block" id="CCTBXCrystalParSet.get_scatterers">
+<a class="viewcode-back" href="../../../api/diffpy.cmistructure.html#diffpy.cmistructure.cctbxparset.CCTBXCrystalParSet.get_scatterers">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_scatterers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Return the list of ParameterSets that represent the</span>
+<span class="sd">        scatterers.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        list of CCTBXScattererParSet</span>
+<span class="sd">            The scatterer ParameterSets of the structure.</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">scatterers</span></div>
+
+
+<div class="viewcode-block" id="CCTBXCrystalParSet.get_space_group">
+<a class="viewcode-back" href="../../../api/diffpy.cmistructure.html#diffpy.cmistructure.cctbxparset.CCTBXCrystalParSet.get_space_group">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_space_group</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Return the Hermann-Mauguin space group symbol of the</span>
+<span class="sd">        structure.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str</span>
+<span class="sd">            The Hermann-Mauguin space group symbol.</span>
+<span class="sd">        """</span>
+        <span class="n">space_group</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">space_group</span><span class="p">()</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">space_group</span><span class="o">.</span><span class="n">type</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">t</span><span class="o">.</span><span class="n">lookup_symbol</span><span class="p">()</span></div>
+</div>
+
+
+
+<span class="c1"># End class CCTBXCrystalParSet</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Contributors to diffpy.cmistructure.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

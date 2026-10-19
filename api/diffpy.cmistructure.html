@@ -1,0 +1,1499 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>diffpy.cmistructure package &mdash; diffpy.cmistructure 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=38b66d78"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=cca77546"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Release notes" href="../release.html" />
+    <link rel="prev" title="Getting started" href="../getting-started.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            diffpy.cmistructure
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting-started.html">Getting started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Package API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#diffpy.cmistructure.constrain_as_space_group"><code class="docutils literal notranslate"><span class="pre">constrain_as_space_group()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#diffpy.cmistructure.structure_to_parameter_set"><code class="docutils literal notranslate"><span class="pre">structure_to_parameter_set()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-diffpy.cmistructure.objcrystparset">diffpy.cmistructure.objcrystparset module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#diffpy.cmistructure.objcrystparset.ObjCrystCrystalParSet"><code class="docutils literal notranslate"><span class="pre">ObjCrystCrystalParSet</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet"><code class="docutils literal notranslate"><span class="pre">ObjCrystMoleculeParSet</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-diffpy.cmistructure.basestructureparset">diffpy.cmistructure.basestructureparset module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#diffpy.cmistructure.basestructureparset.BaseStructureParSet"><code class="docutils literal notranslate"><span class="pre">BaseStructureParSet</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-diffpy.cmistructure.srrealparset">diffpy.cmistructure.srrealparset module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#diffpy.cmistructure.srrealparset.SrRealParSet"><code class="docutils literal notranslate"><span class="pre">SrRealParSet</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-diffpy.cmistructure.diffpyparset">diffpy.cmistructure.diffpyparset module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#diffpy.cmistructure.diffpyparset.DiffpyStructureParSet"><code class="docutils literal notranslate"><span class="pre">DiffpyStructureParSet</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-diffpy.cmistructure.cctbxparset">diffpy.cmistructure.cctbxparset module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#diffpy.cmistructure.cctbxparset.CCTBXCrystalParSet"><code class="docutils literal notranslate"><span class="pre">CCTBXCrystalParSet</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#diffpy.cmistructure.cctbxparset.CCTBXScattererParSet"><code class="docutils literal notranslate"><span class="pre">CCTBXScattererParSet</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#diffpy.cmistructure.cctbxparset.CCTBXUnitCellParSet"><code class="docutils literal notranslate"><span class="pre">CCTBXUnitCellParSet</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-diffpy.cmistructure.bvsrestraint">diffpy.cmistructure.bvsrestraint module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#diffpy.cmistructure.bvsrestraint.BVSRestraint"><code class="docutils literal notranslate"><span class="pre">BVSRestraint</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-diffpy.cmistructure.sgconstraints">diffpy.cmistructure.sgconstraints module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#diffpy.cmistructure.sgconstraints.constrain_as_space_group"><code class="docutils literal notranslate"><span class="pre">constrain_as_space_group()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../release.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">diffpy.cmistructure</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">diffpy.cmistructure package</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/diffpy/diffpy.cmistructure/blob/main/docs/source/api/diffpy.cmistructure.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-diffpy.cmistructure">
+<span id="diffpy-cmistructure-package"></span><h1>diffpy.cmistructure package<a class="headerlink" href="#module-diffpy.cmistructure" title="Link to this heading"></a></h1>
+<p>Modules and classes that adapt structure representations to the
+ParameterSet interface and automatic structure constraint generation
+from space group information.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="diffpy.cmistructure.constrain_as_space_group">
+<span class="sig-prename descclassname"><span class="pre">diffpy.cmistructure.</span></span><span class="sig-name descname"><span class="pre">constrain_as_space_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phase</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spacegroup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scatterers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sgoffset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0,</span> <span class="pre">0,</span> <span class="pre">0]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constrainlat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constrainadps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">adpsymbols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isosymbol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Uiso'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/diffpy/cmistructure/sgconstraints.html#constrain_as_space_group"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#diffpy.cmistructure.constrain_as_space_group" title="Link to this definition"></a></dt>
+<dd><p>Constrain a P1 structure to a space group.</p>
+<p>This applies space group constraints to a structure ParameterSet with
+P1 symmetry. The passed scatterers are explicitly constrained to the
+specified space group, and the ADPs and lattice may be constrained as
+well. New Parameters used in the constraints are created within the
+returned SpaceGroupParameters object. Constraints are created in the
+ParameterSet that contains the constrained Parameter. This erases any
+constraints or constant flags on the scatterers, lattice or ADPs that
+are to be constrained.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>phase</strong> (<a class="reference internal" href="#diffpy.cmistructure.basestructureparset.BaseStructureParSet" title="diffpy.cmistructure.basestructureparset.BaseStructureParSet"><em>BaseStructureParSet</em></a><em> or </em><em>object with a .phase attribute</em>) – The structure ParameterSet to constrain, or a generator such as a
+PDFGenerator whose <code class="docutils literal notranslate"><span class="pre">.phase</span></code> is the structure ParameterSet.</p></li>
+<li><p><strong>spacegroup</strong> (<em>int</em><em>, </em><em>str</em><em> or </em><em>diffpy.structure.spacegroups.SpaceGroup</em>) – The space group number, symbol or SpaceGroup instance.</p></li>
+<li><p><strong>scatterers</strong> (<em>list</em><em> of </em><em>ParameterSet</em><em>, </em><em>optional</em>) – The scatterer ParameterSets to constrain. If None (default), all
+scatterers returned by <code class="docutils literal notranslate"><span class="pre">phase.get_scatterers()</span></code> are constrained.</p></li>
+<li><p><strong>sgoffset</strong> (<em>list</em><em> of </em><em>float</em><em>, </em><em>optional</em>) – The offset of the space group origin (default [0, 0, 0]).</p></li>
+<li><p><strong>constrainlat</strong> (<em>bool</em><em>, </em><em>optional</em>) – The flag indicating whether to constrain the lattice (default
+True).</p></li>
+<li><p><strong>constrainadps</strong> (<em>bool</em><em>, </em><em>optional</em>) – The flag indicating whether to constrain the ADPs (default True).</p></li>
+<li><p><strong>adpsymbols</strong> (<em>list</em><em> of </em><em>str</em><em>, </em><em>optional</em>) – The ADP names. By default this is
+diffpy.structure.symmetryutilities.stdUsymbols (U11, U22, etc.).
+The names must be given in the same order as stdUsymbols.</p></li>
+<li><p><strong>isosymbol</strong> (<em>str</em><em>, </em><em>optional</em>) – The name of the isotropic ADP (default “Uiso”). If None,
+isotropic ADPs are constrained via the anisotropic ADPs.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The free Parameters of the structure that remain after applying
+the space group constraints.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>SpaceGroupParameters</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The lattice constraints are applied as follows.</p>
+<dl class="simple">
+<dt>Triclinic</dt><dd><p>No constraints.</p>
+</dd>
+<dt>Monoclinic</dt><dd><p>alpha and beta are fixed to 90 unless alpha != beta and
+alpha == gamma, in which case alpha and gamma are fixed to 90.</p>
+</dd>
+<dt>Orthorhombic</dt><dd><p>alpha, beta and gamma are fixed to 90.</p>
+</dd>
+<dt>Tetragonal</dt><dd><p>b is constrained to a and alpha, beta and gamma are fixed to 90.</p>
+</dd>
+<dt>Trigonal</dt><dd><p>If gamma == 120, then b is constrained to a, alpha and beta are
+fixed to 90 and gamma is fixed to 120. Otherwise, b and c are
+constrained to a, and beta and gamma are fixed to alpha.</p>
+</dd>
+<dt>Hexagonal</dt><dd><p>b is constrained to a, alpha and beta are fixed to 90 and gamma
+is fixed to 120.</p>
+</dd>
+<dt>Cubic</dt><dd><p>b and c are constrained to a, and alpha, beta and gamma are fixed
+to 90.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>TypeError</strong> – If <code class="docutils literal notranslate"><span class="pre">phase</span></code> is neither a structure ParameterSet nor an object
+    whose <code class="docutils literal notranslate"><span class="pre">.phase</span></code> is one.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="diffpy.cmistructure.structure_to_parameter_set">
+<span class="sig-prename descclassname"><span class="pre">diffpy.cmistructure.</span></span><span class="sig-name descname"><span class="pre">structure_to_parameter_set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">structure</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/diffpy/cmistructure.html#structure_to_parameter_set"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#diffpy.cmistructure.structure_to_parameter_set" title="Link to this definition"></a></dt>
+<dd><p>Create a ParameterSet adapted to a structure object.</p>
+<p>The adapter is chosen from the type of <cite>structure</cite>. Supported types are
+diffpy.structure.Structure, pyobjcryst.crystal.Crystal,
+pyobjcryst.molecule.Molecule and cctbx.crystal.special_position_settings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – The name to give the structure.</p></li>
+<li><p><strong>structure</strong> (<em>object</em>) – The structure object to adapt.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The ParameterSet adapting <cite>structure</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#diffpy.cmistructure.basestructureparset.BaseStructureParSet" title="diffpy.cmistructure.basestructureparset.BaseStructureParSet">BaseStructureParSet</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>TypeError</strong> – If <cite>structure</cite> is not one of the supported structure types.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+<section id="module-diffpy.cmistructure.objcrystparset">
+<span id="diffpy-cmistructure-objcrystparset-module"></span><h3>diffpy.cmistructure.objcrystparset module<a class="headerlink" href="#module-diffpy.cmistructure.objcrystparset" title="Link to this heading"></a></h3>
+<p>Wrappers for adapting pyobjcryst.crystal.Crystal to a srfit
+ParameterSet.</p>
+<p>This will adapt a Crystal or Molecule object from pyobjcryst into the
+ParameterSet interface. The following classes are adapted:</p>
+<ul class="simple">
+<li><p><cite>ObjCrystCrystalParSet</cite>: adapter for <cite>pyobjcryst.crystal.Crystal</cite>.</p></li>
+<li><p><cite>ObjCrystAtomParSet</cite>: adapter for <cite>pyobjcryst.atom.Atom</cite>.</p></li>
+<li><p><cite>ObjCrystMoleculeParSet</cite>: adapter for <cite>pyobjcryst.molecule.Molecule</cite>.</p></li>
+<li><p><cite>ObjCrystMolAtomParSet</cite>: adapter for <cite>pyobjcryst.molecule.MolAtom</cite>.</p></li>
+</ul>
+<p>Related to the adaptation of Molecule and MolAtom, there are adaptors
+for specifying molecule restraints:</p>
+<ul class="simple">
+<li><p><cite>ObjCrystBondLengthRestraint</cite></p></li>
+<li><p><cite>ObjCrystBondAngleRestraint</cite></p></li>
+<li><p><cite>ObjCrystDihedralAngleRestraint</cite></p></li>
+</ul>
+<p>There are also Parameters for encapsulating and modifying atoms via
+their relative positions. These Parameters can also act like
+constraints, and can modify the positions of multiple MolAtoms:</p>
+<ul class="simple">
+<li><p><cite>ObjCrystBondLengthParameter</cite></p></li>
+<li><p><cite>ObjCrystBondAngleParameter</cite></p></li>
+<li><p><cite>ObjCrystDihedralAngleParameter</cite></p></li>
+</ul>
+<dl class="py class">
+<dt class="sig sig-object py" id="diffpy.cmistructure.objcrystparset.ObjCrystCrystalParSet">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">diffpy.cmistructure.objcrystparset.</span></span><span class="sig-name descname"><span class="pre">ObjCrystCrystalParSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crystal</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/diffpy/cmistructure/objcrystparset.html#ObjCrystCrystalParSet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#diffpy.cmistructure.objcrystparset.ObjCrystCrystalParSet" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#diffpy.cmistructure.srrealparset.SrRealParSet" title="diffpy.cmistructure.srrealparset.SrRealParSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">SrRealParSet</span></code></a></p>
+<p>Adapt a pyobjcryst.crystal.Crystal to the ParameterSet interface.</p>
+<p>This class derives from SrRealParSet. See that class for base
+attributes.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="diffpy.cmistructure.objcrystparset.ObjCrystCrystalParSet.structure">
+<span class="sig-name descname"><span class="pre">structure</span></span><a class="headerlink" href="#diffpy.cmistructure.objcrystparset.ObjCrystCrystalParSet.structure" title="Link to this definition"></a></dt>
+<dd><p>The adapted crystal.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyobjcryst.crystal.Crystal</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="diffpy.cmistructure.objcrystparset.ObjCrystCrystalParSet.scatterers">
+<span class="sig-name descname"><span class="pre">scatterers</span></span><a class="headerlink" href="#diffpy.cmistructure.objcrystparset.ObjCrystCrystalParSet.scatterers" title="Link to this definition"></a></dt>
+<dd><p>The scatterer ParameterSets, provided for convenience.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of ObjCrystAtomParSet or <a class="reference internal" href="#diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet" title="diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet">ObjCrystMoleculeParSet</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="diffpy.cmistructure.objcrystparset.ObjCrystCrystalParSet.sgpars">
+<span class="sig-name descname"><span class="pre">sgpars</span></span><a class="headerlink" href="#diffpy.cmistructure.objcrystparset.ObjCrystCrystalParSet.sgpars" title="Link to this definition"></a></dt>
+<dd><p>The free structure Parameters after applying the crystal’s space
+group constraints, created when first accessed. See the
+diffpy.cmistructure.sgconstraints module.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>SpaceGroupParameters</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="diffpy.cmistructure.objcrystparset.ObjCrystCrystalParSet.angle_units">
+<span class="sig-name descname"><span class="pre">angle_units</span></span><a class="headerlink" href="#diffpy.cmistructure.objcrystparset.ObjCrystCrystalParSet.angle_units" title="Link to this definition"></a></dt>
+<dd><p>The units of the lattice angles, always “rad”.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">a,</span> <span class="pre">b,</span> <span class="pre">c,</span> <span class="pre">alpha,</span> <span class="pre">beta,</span> <span class="pre">gamma</span></span></dt>
+<dd><p>The unit cell parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ParameterAdapter</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diffpy.cmistructure.objcrystparset.ObjCrystCrystalParSet.can_adapt">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">can_adapt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">structure</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/diffpy/cmistructure/objcrystparset.html#ObjCrystCrystalParSet.can_adapt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#diffpy.cmistructure.objcrystparset.ObjCrystCrystalParSet.can_adapt" title="Link to this definition"></a></dt>
+<dd><p>Return whether the structure can be adapted by this class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>structure</strong> (<em>object</em>) – The structure object to check.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The flag indicating if <cite>structure</cite> is a pyobjcryst Crystal.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diffpy.cmistructure.objcrystparset.ObjCrystCrystalParSet.get_lattice">
+<span class="sig-name descname"><span class="pre">get_lattice</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/diffpy/cmistructure/objcrystparset.html#ObjCrystCrystalParSet.get_lattice"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#diffpy.cmistructure.objcrystparset.ObjCrystCrystalParSet.get_lattice" title="Link to this definition"></a></dt>
+<dd><p>Return the ParameterSet containing the lattice Parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>This ParameterSet, which holds the lattice Parameters
+directly.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#diffpy.cmistructure.objcrystparset.ObjCrystCrystalParSet" title="diffpy.cmistructure.objcrystparset.ObjCrystCrystalParSet">ObjCrystCrystalParSet</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diffpy.cmistructure.objcrystparset.ObjCrystCrystalParSet.get_scatterers">
+<span class="sig-name descname"><span class="pre">get_scatterers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/diffpy/cmistructure/objcrystparset.html#ObjCrystCrystalParSet.get_scatterers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#diffpy.cmistructure.objcrystparset.ObjCrystCrystalParSet.get_scatterers" title="Link to this definition"></a></dt>
+<dd><p>Return the list of ParameterSets that represent the
+scatterers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The scatterer ParameterSets of the crystal.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list of ObjCrystAtomParSet or <a class="reference internal" href="#diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet" title="diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet">ObjCrystMoleculeParSet</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="id0">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">sgpars</span></span><a class="headerlink" href="#id0" title="Link to this definition"></a></dt>
+<dd><p>Constrain the space group.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">diffpy.cmistructure.objcrystparset.</span></span><span class="sig-name descname"><span class="pre">ObjCrystMoleculeParSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">molecule</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/diffpy/cmistructure/objcrystparset.html#ObjCrystMoleculeParSet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ObjCrystScattererParSet</span></code></p>
+<p>Adapt a pyobjcryst.molecule.Molecule to the ParameterSet
+interface.</p>
+<p>This class derives from ObjCrystScattererParSet. Other attributes are
+inherited from diffpy.srfit.fitbase.parameterset.ParameterSet.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet.scatterer">
+<span class="sig-name descname"><span class="pre">scatterer</span></span><a class="headerlink" href="#diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet.scatterer" title="Link to this definition"></a></dt>
+<dd><p>The adapted molecule.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyobjcryst.molecule.Molecule</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet.structure">
+<span class="sig-name descname"><span class="pre">structure</span></span><a class="headerlink" href="#diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet.structure" title="Link to this definition"></a></dt>
+<dd><p>The adapted molecule.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyobjcryst.molecule.Molecule</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet.parent">
+<span class="sig-name descname"><span class="pre">parent</span></span><a class="headerlink" href="#diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet.parent" title="Link to this definition"></a></dt>
+<dd><p>The crystal ParameterSet this belongs to. This is None when the
+ObjCrystMoleculeParSet is used on its own.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#diffpy.cmistructure.objcrystparset.ObjCrystCrystalParSet" title="diffpy.cmistructure.objcrystparset.ObjCrystCrystalParSet">ObjCrystCrystalParSet</a> or None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet.atoms">
+<span class="sig-name descname"><span class="pre">atoms</span></span><a class="headerlink" href="#diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet.atoms" title="Link to this definition"></a></dt>
+<dd><p>The ParameterSets of the atoms in the molecule.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of ObjCrystMolAtomParSet</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet.occ">
+<span class="sig-name descname"><span class="pre">occ</span></span><a class="headerlink" href="#diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet.occ" title="Link to this definition"></a></dt>
+<dd><p>The occupancy of the molecule on its crystal location.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ParameterAdapter</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">q0,</span> <span class="pre">q1,</span> <span class="pre">q2,</span> <span class="pre">q3</span></span></dt>
+<dd><p>The orientational quaternion of the molecule.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ParameterAdapter</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet.add_bond_angle_parameter">
+<span class="sig-name descname"><span class="pre">add_bond_angle_parameter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atom1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atom2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atom3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">const</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/diffpy/cmistructure/objcrystparset.html#ObjCrystMoleculeParSet.add_bond_angle_parameter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet.add_bond_angle_parameter" title="Link to this definition"></a></dt>
+<dd><p>Add a refinable bond angle to the Molecule.</p>
+<p>This adds an ObjCrystBondAngleParameter to the
+ObjCrystMoleculeParSet that can be adjusted during the fit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – The name of the new Parameter.</p></li>
+<li><p><strong>atom1</strong> (<em>ObjCrystMolAtomParSet</em>) – The first atom in the bond angle.</p></li>
+<li><p><strong>atom2</strong> (<em>ObjCrystMolAtomParSet</em>) – The second (central) atom in the bond angle.</p></li>
+<li><p><strong>atom3</strong> (<em>ObjCrystMolAtomParSet</em>) – The third (mutated) atom in the bond angle.</p></li>
+<li><p><strong>value</strong> (<em>float</em><em>, </em><em>optional</em>) – The initial bond angle in radians. If None (default), the
+current bond angle between the atoms is used.</p></li>
+<li><p><strong>const</strong> (<em>bool</em><em>, </em><em>optional</em>) – The flag indicating whether the Parameter is constant
+(default False).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The new bond angle Parameter.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ObjCrystBondAngleParameter</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet.add_bond_length_parameter">
+<span class="sig-name descname"><span class="pre">add_bond_length_parameter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atom1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atom2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">const</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/diffpy/cmistructure/objcrystparset.html#ObjCrystMoleculeParSet.add_bond_length_parameter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet.add_bond_length_parameter" title="Link to this definition"></a></dt>
+<dd><p>Add a refinable bond length to the Molecule.</p>
+<p>This adds an ObjCrystBondLengthParameter to the
+ObjCrystMoleculeParSet that can be adjusted during the fit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – The name of the new Parameter.</p></li>
+<li><p><strong>atom1</strong> (<em>ObjCrystMolAtomParSet</em>) – The first atom in the bond.</p></li>
+<li><p><strong>atom2</strong> (<em>ObjCrystMolAtomParSet</em>) – The second (mutated) atom in the bond.</p></li>
+<li><p><strong>value</strong> (<em>float</em><em>, </em><em>optional</em>) – The initial bond length. If None (default), the current
+distance between the atoms is used.</p></li>
+<li><p><strong>const</strong> (<em>bool</em><em>, </em><em>optional</em>) – The flag indicating whether the Parameter is constant
+(default False).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The new bond length Parameter.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ObjCrystBondLengthParameter</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet.add_dihedral_angle_parameter">
+<span class="sig-name descname"><span class="pre">add_dihedral_angle_parameter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atom1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atom2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atom3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atom4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">const</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/diffpy/cmistructure/objcrystparset.html#ObjCrystMoleculeParSet.add_dihedral_angle_parameter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet.add_dihedral_angle_parameter" title="Link to this definition"></a></dt>
+<dd><p>Add a refinable dihedral angle to the Molecule.</p>
+<p>This adds an ObjCrystDihedralAngleParameter to the
+ObjCrystMoleculeParSet that can be adjusted during the fit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – The name of the new Parameter.</p></li>
+<li><p><strong>atom1</strong> (<em>ObjCrystMolAtomParSet</em>) – The first atom in the dihedral angle.</p></li>
+<li><p><strong>atom2</strong> (<em>ObjCrystMolAtomParSet</em>) – The second (central) atom in the dihedral angle.</p></li>
+<li><p><strong>atom3</strong> (<em>ObjCrystMolAtomParSet</em>) – The third (central) atom in the dihedral angle.</p></li>
+<li><p><strong>atom4</strong> (<em>ObjCrystMolAtomParSet</em>) – The fourth (mutated) atom in the dihedral angle.</p></li>
+<li><p><strong>value</strong> (<em>float</em><em>, </em><em>optional</em>) – The initial dihedral angle in radians. If None (default), the
+current dihedral angle between the atoms is used.</p></li>
+<li><p><strong>const</strong> (<em>bool</em><em>, </em><em>optional</em>) – The flag indicating whether the Parameter is constant
+(default False).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The new dihedral angle Parameter.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ObjCrystDihedralAngleParameter</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet.can_adapt">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">can_adapt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">structure</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/diffpy/cmistructure/objcrystparset.html#ObjCrystMoleculeParSet.can_adapt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet.can_adapt" title="Link to this definition"></a></dt>
+<dd><p>Return whether the structure can be adapted by this class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>structure</strong> (<em>object</em>) – The structure object to check.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The flag indicating if <cite>structure</cite> is a pyobjcryst Molecule.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet.get_lattice">
+<span class="sig-name descname"><span class="pre">get_lattice</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/diffpy/cmistructure/objcrystparset.html#ObjCrystMoleculeParSet.get_lattice"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet.get_lattice" title="Link to this definition"></a></dt>
+<dd><p>Return a ParameterSet holding a unit cubic lattice.</p>
+<p>A molecule is not periodic, so this returns a new ParameterSet
+with a = b = c = 1 and alpha = beta = gamma = 90 degrees.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The ParameterSet holding the placeholder lattice Parameters.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>ParameterSet</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet.get_scatterers">
+<span class="sig-name descname"><span class="pre">get_scatterers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/diffpy/cmistructure/objcrystparset.html#ObjCrystMoleculeParSet.get_scatterers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet.get_scatterers" title="Link to this definition"></a></dt>
+<dd><p>Return the list of ParameterSets that represent the
+scatterers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The atom ParameterSets of the molecule.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list of ObjCrystMolAtomParSet</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet.restrain_bond_angle">
+<span class="sig-name descname"><span class="pre">restrain_bond_angle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atom1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atom2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atom3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scaled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/diffpy/cmistructure/objcrystparset.html#ObjCrystMoleculeParSet.restrain_bond_angle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet.restrain_bond_angle" title="Link to this definition"></a></dt>
+<dd><p>Add a bond angle restraint between three atoms.</p>
+<p>This creates an ObjCrystBondAngleRestraint and adds it to the
+ObjCrystMoleculeParSet.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>atom1</strong> (<em>ObjCrystMolAtomParSet</em>) – The first atom in the bond angle.</p></li>
+<li><p><strong>atom2</strong> (<em>ObjCrystMolAtomParSet</em>) – The second (central) atom in the bond angle.</p></li>
+<li><p><strong>atom3</strong> (<em>ObjCrystMolAtomParSet</em>) – The third atom in the bond angle.</p></li>
+<li><p><strong>angle</strong> (<em>float</em>) – The bond angle in radians.</p></li>
+<li><p><strong>sigma</strong> (<em>float</em>) – The uncertainty of the bond angle in radians.</p></li>
+<li><p><strong>delta</strong> (<em>float</em>) – The width of the bond angle in radians.</p></li>
+<li><p><strong>scaled</strong> (<em>bool</em><em>, </em><em>optional</em>) – The flag indicating if the restraint is scaled (multiplied)
+by the unrestrained point-average chi^2 (chi^2/numpoints)
+(default False).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The restraint, for use with the <code class="docutils literal notranslate"><span class="pre">remove_soft_bounds</span></code> method.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ObjCrystBondAngleRestraint</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet.restrain_bond_angle_parameter">
+<span class="sig-name descname"><span class="pre">restrain_bond_angle_parameter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scaled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/diffpy/cmistructure/objcrystparset.html#ObjCrystMoleculeParSet.restrain_bond_angle_parameter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet.restrain_bond_angle_parameter" title="Link to this definition"></a></dt>
+<dd><p>Add a bond angle restraint on a bond angle Parameter.</p>
+<p>This creates an ObjCrystBondAngleRestraint between the atoms of
+<cite>parameter</cite> and adds it to the ObjCrystMoleculeParSet.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parameter</strong> (<em>ObjCrystBondAngleParameter</em>) – The bond angle Parameter to restrain (see
+add_bond_angle_parameter).</p></li>
+<li><p><strong>angle</strong> (<em>float</em>) – The bond angle in radians.</p></li>
+<li><p><strong>sigma</strong> (<em>float</em>) – The uncertainty of the bond angle in radians.</p></li>
+<li><p><strong>delta</strong> (<em>float</em>) – The width of the bond angle in radians.</p></li>
+<li><p><strong>scaled</strong> (<em>bool</em><em>, </em><em>optional</em>) – The flag indicating if the restraint is scaled (multiplied)
+by the unrestrained point-average chi^2 (chi^2/numpoints)
+(default False).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The restraint, for use with the <code class="docutils literal notranslate"><span class="pre">remove_soft_bounds</span></code> method.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ObjCrystBondAngleRestraint</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet.restrain_bond_length">
+<span class="sig-name descname"><span class="pre">restrain_bond_length</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atom1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atom2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scaled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/diffpy/cmistructure/objcrystparset.html#ObjCrystMoleculeParSet.restrain_bond_length"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet.restrain_bond_length" title="Link to this definition"></a></dt>
+<dd><p>Add a bond length restraint between two atoms.</p>
+<p>This creates an ObjCrystBondLengthRestraint and adds it to the
+ObjCrystMoleculeParSet.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>atom1</strong> (<em>ObjCrystMolAtomParSet</em>) – The first atom in the bond.</p></li>
+<li><p><strong>atom2</strong> (<em>ObjCrystMolAtomParSet</em>) – The second atom in the bond.</p></li>
+<li><p><strong>length</strong> (<em>float</em>) – The length of the bond in Angstroms.</p></li>
+<li><p><strong>sigma</strong> (<em>float</em>) – The uncertainty of the bond length in Angstroms.</p></li>
+<li><p><strong>delta</strong> (<em>float</em>) – The width of the bond in Angstroms.</p></li>
+<li><p><strong>scaled</strong> (<em>bool</em><em>, </em><em>optional</em>) – The flag indicating if the restraint is scaled (multiplied)
+by the unrestrained point-average chi^2 (chi^2/numpoints)
+(default False).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The restraint, for use with the <code class="docutils literal notranslate"><span class="pre">remove_soft_bounds</span></code> method.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ObjCrystBondLengthRestraint</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet.restrain_bond_length_parameter">
+<span class="sig-name descname"><span class="pre">restrain_bond_length_parameter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scaled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/diffpy/cmistructure/objcrystparset.html#ObjCrystMoleculeParSet.restrain_bond_length_parameter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet.restrain_bond_length_parameter" title="Link to this definition"></a></dt>
+<dd><p>Add a bond length restraint on a bond length Parameter.</p>
+<p>This creates an ObjCrystBondLengthRestraint between the atoms of
+<cite>parameter</cite> and adds it to the ObjCrystMoleculeParSet.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parameter</strong> (<em>ObjCrystBondLengthParameter</em>) – The bond length Parameter to restrain (see
+add_bond_length_parameter).</p></li>
+<li><p><strong>length</strong> (<em>float</em>) – The length of the bond in Angstroms.</p></li>
+<li><p><strong>sigma</strong> (<em>float</em>) – The uncertainty of the bond length in Angstroms.</p></li>
+<li><p><strong>delta</strong> (<em>float</em>) – The width of the bond in Angstroms.</p></li>
+<li><p><strong>scaled</strong> (<em>bool</em><em>, </em><em>optional</em>) – The flag indicating if the restraint is scaled (multiplied)
+by the unrestrained point-average chi^2 (chi^2/numpoints)
+(default False).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The restraint, for use with the <code class="docutils literal notranslate"><span class="pre">remove_soft_bounds</span></code> method.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ObjCrystBondLengthRestraint</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet.restrain_dihedral_angle">
+<span class="sig-name descname"><span class="pre">restrain_dihedral_angle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atom1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atom2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atom3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atom4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scaled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/diffpy/cmistructure/objcrystparset.html#ObjCrystMoleculeParSet.restrain_dihedral_angle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet.restrain_dihedral_angle" title="Link to this definition"></a></dt>
+<dd><p>Add a dihedral angle restraint between four atoms.</p>
+<p>This creates an ObjCrystDihedralAngleRestraint and adds it to the
+ObjCrystMoleculeParSet.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>atom1</strong> (<em>ObjCrystMolAtomParSet</em>) – The first atom in the angle.</p></li>
+<li><p><strong>atom2</strong> (<em>ObjCrystMolAtomParSet</em>) – The second (central) atom in the angle.</p></li>
+<li><p><strong>atom3</strong> (<em>ObjCrystMolAtomParSet</em>) – The third (central) atom in the angle.</p></li>
+<li><p><strong>atom4</strong> (<em>ObjCrystMolAtomParSet</em>) – The fourth atom in the angle.</p></li>
+<li><p><strong>angle</strong> (<em>float</em>) – The dihedral angle in radians.</p></li>
+<li><p><strong>sigma</strong> (<em>float</em>) – The uncertainty of the dihedral angle in radians.</p></li>
+<li><p><strong>delta</strong> (<em>float</em>) – The width of the dihedral angle in radians.</p></li>
+<li><p><strong>scaled</strong> (<em>bool</em><em>, </em><em>optional</em>) – The flag indicating if the restraint is scaled (multiplied)
+by the unrestrained point-average chi^2 (chi^2/numpoints)
+(default False).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The restraint, for use with the <code class="docutils literal notranslate"><span class="pre">remove_soft_bounds</span></code> method.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ObjCrystDihedralAngleRestraint</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet.restrain_dihedral_angle_parameter">
+<span class="sig-name descname"><span class="pre">restrain_dihedral_angle_parameter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scaled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/diffpy/cmistructure/objcrystparset.html#ObjCrystMoleculeParSet.restrain_dihedral_angle_parameter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet.restrain_dihedral_angle_parameter" title="Link to this definition"></a></dt>
+<dd><p>Add a dihedral angle restraint on a dihedral angle Parameter.</p>
+<p>This creates an ObjCrystDihedralAngleRestraint between the atoms of
+<cite>parameter</cite> and adds it to the ObjCrystMoleculeParSet.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parameter</strong> (<em>ObjCrystDihedralAngleParameter</em>) – The dihedral angle Parameter to restrain (see
+add_dihedral_angle_parameter).</p></li>
+<li><p><strong>angle</strong> (<em>float</em>) – The dihedral angle in radians.</p></li>
+<li><p><strong>sigma</strong> (<em>float</em>) – The uncertainty of the dihedral angle in radians.</p></li>
+<li><p><strong>delta</strong> (<em>float</em>) – The width of the dihedral angle in radians.</p></li>
+<li><p><strong>scaled</strong> (<em>bool</em><em>, </em><em>optional</em>) – The flag indicating if the restraint is scaled (multiplied)
+by the unrestrained point-average chi^2 (chi^2/numpoints)
+(default False).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The restraint, for use with the <code class="docutils literal notranslate"><span class="pre">remove_soft_bounds</span></code> method.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ObjCrystDihedralAngleRestraint</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet.use_symmetry">
+<span class="sig-name descname"><span class="pre">use_symmetry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">use</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/diffpy/cmistructure/objcrystparset.html#ObjCrystMoleculeParSet.use_symmetry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet.use_symmetry" title="Link to this definition"></a></dt>
+<dd><p>Set whether this structure uses symmetry.</p>
+<p>This structure object does not support symmetry, so this does
+nothing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>use</strong> (<em>bool</em><em>, </em><em>optional</em>) – The flag indicating if symmetry is used (default True).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet.using_symmetry">
+<span class="sig-name descname"><span class="pre">using_symmetry</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/diffpy/cmistructure/objcrystparset.html#ObjCrystMoleculeParSet.using_symmetry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet.using_symmetry" title="Link to this definition"></a></dt>
+<dd><p>Return whether symmetry is being used.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The flag indicating if symmetry is used. Always False, since
+this structure object does not support symmetry.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet.wrap_restraints">
+<span class="sig-name descname"><span class="pre">wrap_restraints</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/diffpy/cmistructure/objcrystparset.html#ObjCrystMoleculeParSet.wrap_restraints"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet.wrap_restraints" title="Link to this definition"></a></dt>
+<dd><p>Wrap the restraints implicit to the molecule.</p>
+<p>This wraps the MolBonds, MolBondAngles and MolDihedralAngles of
+the Molecule as ObjCrystMoleculeRestraint objects. Restraints
+wrapped this way cannot be modified from within this class.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet.wrap_stretch_mode_parameters">
+<span class="sig-name descname"><span class="pre">wrap_stretch_mode_parameters</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/diffpy/cmistructure/objcrystparset.html#ObjCrystMoleculeParSet.wrap_stretch_mode_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#diffpy.cmistructure.objcrystparset.ObjCrystMoleculeParSet.wrap_stretch_mode_parameters" title="Link to this definition"></a></dt>
+<dd><p>Wrap the stretch modes implicit to the Molecule as
+Parameters.</p>
+<p>This wraps the StretchModeBondLengths and StretchModeBondAngles
+of the Molecule as Parameters. The MolBondAtoms in the Molecule
+must have unique names. Torsion angles are not wrapped, as there
+is not enough information to determine each MolAtom in the
+angle.</p>
+<p>Each Parameter is named after its constituent atoms, as
+“bl_aname1_aname2” for bond lengths and
+“ba_aname1_aname2_aname3” for bond angles.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-diffpy.cmistructure.basestructureparset">
+<span id="diffpy-cmistructure-basestructureparset-module"></span><h3>diffpy.cmistructure.basestructureparset module<a class="headerlink" href="#module-diffpy.cmistructure.basestructureparset" title="Link to this heading"></a></h3>
+<p>Base class for adapting structures to a ParameterSet interface.</p>
+<p>The BaseStructureParSet is a ParameterSet with functionality required by
+all structure adapters.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="diffpy.cmistructure.basestructureparset.BaseStructureParSet">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">diffpy.cmistructure.basestructureparset.</span></span><span class="sig-name descname"><span class="pre">BaseStructureParSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/diffpy/cmistructure/basestructureparset.html#BaseStructureParSet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#diffpy.cmistructure.basestructureparset.BaseStructureParSet" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ParameterSet</span></code></p>
+<p>Base class for structure adapters.</p>
+<p>BaseStructureParSet derives from ParameterSet and provides methods that
+help interface the ParameterSet with the space group constraint methods in
+the sgconstraints module and to ProfileGenerators.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="diffpy.cmistructure.basestructureparset.BaseStructureParSet.structure">
+<span class="sig-name descname"><span class="pre">structure</span></span><a class="headerlink" href="#diffpy.cmistructure.basestructureparset.BaseStructureParSet.structure" title="Link to this definition"></a></dt>
+<dd><p>The adapted structure object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diffpy.cmistructure.basestructureparset.BaseStructureParSet.can_adapt">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">can_adapt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">structure</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/diffpy/cmistructure/basestructureparset.html#BaseStructureParSet.can_adapt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#diffpy.cmistructure.basestructureparset.BaseStructureParSet.can_adapt" title="Link to this definition"></a></dt>
+<dd><p>Return whether the structure can be adapted by this class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>structure</strong> (<em>object</em>) – The structure object to check.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The flag indicating if <cite>structure</cite> can be adapted. The base class
+always returns False.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diffpy.cmistructure.basestructureparset.BaseStructureParSet.get_lattice">
+<span class="sig-name descname"><span class="pre">get_lattice</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/diffpy/cmistructure/basestructureparset.html#BaseStructureParSet.get_lattice"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#diffpy.cmistructure.basestructureparset.BaseStructureParSet.get_lattice" title="Link to this definition"></a></dt>
+<dd><p>Return the ParameterSet containing the lattice Parameters.</p>
+<p>The returned ParameterSet may contain other Parameters than the
+lattice Parameters. It is assumed that the lattice parameters
+are named “a”, “b”, “c”, “alpha”, “beta”, “gamma”.</p>
+<p>The lattice must also have the “angle_units” attribute, which is
+either “deg” or “rad”, to signify degrees or radians.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The ParameterSet holding the lattice Parameters.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>ParameterSet</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>NotImplementedError</strong> – If the subclass does not override this method.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diffpy.cmistructure.basestructureparset.BaseStructureParSet.get_scatterers">
+<span class="sig-name descname"><span class="pre">get_scatterers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/diffpy/cmistructure/basestructureparset.html#BaseStructureParSet.get_scatterers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#diffpy.cmistructure.basestructureparset.BaseStructureParSet.get_scatterers" title="Link to this definition"></a></dt>
+<dd><p>Return the list of ParameterSets that represent the
+scatterers.</p>
+<p>The site positions must be accessible from the list entries via
+the names “x”, “y”, and “z”. The ADPs must be accessible as
+well, but the name and nature of the ADPs (U-factors, B-factors,
+isotropic, anisotropic) depends on the adapted structure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The ParameterSets of the scatterers in the structure.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list of ParameterSet</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>NotImplementedError</strong> – If the subclass does not override this method.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-diffpy.cmistructure.srrealparset">
+<span id="diffpy-cmistructure-srrealparset-module"></span><h3>diffpy.cmistructure.srrealparset module<a class="headerlink" href="#module-diffpy.cmistructure.srrealparset" title="Link to this heading"></a></h3>
+<p>Structure wrapper class for structures compatible with SrReal.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="diffpy.cmistructure.srrealparset.SrRealParSet">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">diffpy.cmistructure.srrealparset.</span></span><span class="sig-name descname"><span class="pre">SrRealParSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/diffpy/cmistructure/srrealparset.html#SrRealParSet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#diffpy.cmistructure.srrealparset.SrRealParSet" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#diffpy.cmistructure.basestructureparset.BaseStructureParSet" title="diffpy.cmistructure.basestructureparset.BaseStructureParSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseStructureParSet</span></code></a></p>
+<p>Base class for SrReal-compatible structure adapters.</p>
+<p>This derives from BaseStructureParSet and provides some extended
+functionality provided by SrReal.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="diffpy.cmistructure.srrealparset.SrRealParSet.structure">
+<span class="sig-name descname"><span class="pre">structure</span></span><a class="headerlink" href="#diffpy.cmistructure.srrealparset.SrRealParSet.structure" title="Link to this definition"></a></dt>
+<dd><p>The adapted structure object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="diffpy.cmistructure.srrealparset.SrRealParSet._usesymmetry">
+<span class="sig-name descname"><span class="pre">_usesymmetry</span></span><a class="headerlink" href="#diffpy.cmistructure.srrealparset.SrRealParSet._usesymmetry" title="Link to this definition"></a></dt>
+<dd><p>The flag indicating if SrReal calculators that operate on
+this object should use symmetry (default True).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diffpy.cmistructure.srrealparset.SrRealParSet.restrain_bvs">
+<span class="sig-name descname"><span class="pre">restrain_bvs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sig</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scaled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/diffpy/cmistructure/srrealparset.html#SrRealParSet.restrain_bvs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#diffpy.cmistructure.srrealparset.SrRealParSet.restrain_bvs" title="Link to this definition"></a></dt>
+<dd><p>Restrain the bond-valence sum to zero.</p>
+<p>This adds a penalty to the cost function equal to
+<code class="docutils literal notranslate"><span class="pre">bvmsdiff</span> <span class="pre">/</span> <span class="pre">sig**2</span></code>, where <code class="docutils literal notranslate"><span class="pre">bvmsdiff</span></code> is the mean-squared
+difference between the calculated and expected bond valence sums
+for the structure. If <cite>scaled</cite> is True, this is also scaled by the
+current point-averaged chi^2 value so the restraint is roughly
+equally weighted in the fit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sig</strong> (<em>float</em><em>, </em><em>optional</em>) – The uncertainty on the BVS (default 1).</p></li>
+<li><p><strong>scaled</strong> (<em>bool</em><em>, </em><em>optional</em>) – The flag indicating if the restraint is scaled (multiplied)
+by the unrestrained point-average chi^2 (chi^2/numpoints)
+(default False).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The restraint, for use with the <code class="docutils literal notranslate"><span class="pre">remove_soft_bounds</span></code> method.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#diffpy.cmistructure.bvsrestraint.BVSRestraint" title="diffpy.cmistructure.bvsrestraint.BVSRestraint">BVSRestraint</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diffpy.cmistructure.srrealparset.SrRealParSet.use_symmetry">
+<span class="sig-name descname"><span class="pre">use_symmetry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">use</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/diffpy/cmistructure/srrealparset.html#SrRealParSet.use_symmetry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#diffpy.cmistructure.srrealparset.SrRealParSet.use_symmetry" title="Link to this definition"></a></dt>
+<dd><p>Set whether this structure uses symmetry.</p>
+<p>This determines how the structure is treated by SrReal
+calculators.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>use</strong> (<em>bool</em><em>, </em><em>optional</em>) – The flag indicating if symmetry is used (default True).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diffpy.cmistructure.srrealparset.SrRealParSet.using_symmetry">
+<span class="sig-name descname"><span class="pre">using_symmetry</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/diffpy/cmistructure/srrealparset.html#SrRealParSet.using_symmetry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#diffpy.cmistructure.srrealparset.SrRealParSet.using_symmetry" title="Link to this definition"></a></dt>
+<dd><p>Return whether symmetry is being used.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The flag indicating if symmetry is used.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-diffpy.cmistructure.diffpyparset">
+<span id="diffpy-cmistructure-diffpyparset-module"></span><h3>diffpy.cmistructure.diffpyparset module<a class="headerlink" href="#module-diffpy.cmistructure.diffpyparset" title="Link to this heading"></a></h3>
+<p>Adapters for interfacing a diffpy.structure.Structure with SrFit.</p>
+<p>A diffpy.structure.Structure object is meant to be passed to a
+DiffpyStructureParSet object from this module, which can then be used as a
+ParameterSet. (It has other methods for interfacing with SrReal calculator
+adapters.) Any change to the lattice or existing atoms will be registered with
+the Structure. Changes in the number of atoms will not be recognized.  Thus,
+the diffpy.structure.Structure object should be fully configured before passing
+it to DiffpyStructureParSet.</p>
+<p>The following classes are adapted:</p>
+<ul class="simple">
+<li><p><cite>DiffpyStructureParSet</cite>: adapter for <cite>diffpy.structure.Structure</cite>.</p></li>
+<li><p><cite>DiffpyLatticeParSet</cite>: adapter for <cite>diffpy.structure.Lattice</cite>.</p></li>
+<li><p><cite>DiffpyAtomParSet</cite>: adapter for <cite>diffpy.structure.Atom</cite>.</p></li>
+</ul>
+<dl class="py class">
+<dt class="sig sig-object py" id="diffpy.cmistructure.diffpyparset.DiffpyStructureParSet">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">diffpy.cmistructure.diffpyparset.</span></span><span class="sig-name descname"><span class="pre">DiffpyStructureParSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">structure</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/diffpy/cmistructure/diffpyparset.html#DiffpyStructureParSet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#diffpy.cmistructure.diffpyparset.DiffpyStructureParSet" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#diffpy.cmistructure.srrealparset.SrRealParSet" title="diffpy.cmistructure.srrealparset.SrRealParSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">SrRealParSet</span></code></a></p>
+<p>Adapt a diffpy.structure.Structure to the ParameterSet interface.</p>
+<p>This class derives from SrRealParSet. See that class for base
+attributes.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="diffpy.cmistructure.diffpyparset.DiffpyStructureParSet.atoms">
+<span class="sig-name descname"><span class="pre">atoms</span></span><a class="headerlink" href="#diffpy.cmistructure.diffpyparset.DiffpyStructureParSet.atoms" title="Link to this definition"></a></dt>
+<dd><p>The atom ParameterSets, provided for convenience.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of DiffpyAtomParSet</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="diffpy.cmistructure.diffpyparset.DiffpyStructureParSet.structure">
+<span class="sig-name descname"><span class="pre">structure</span></span><a class="headerlink" href="#diffpy.cmistructure.diffpyparset.DiffpyStructureParSet.structure" title="Link to this definition"></a></dt>
+<dd><p>The structure this is adapting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>diffpy.structure.Structure</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="diffpy.cmistructure.diffpyparset.DiffpyStructureParSet.lattice">
+<span class="sig-name descname"><span class="pre">lattice</span></span><a class="headerlink" href="#diffpy.cmistructure.diffpyparset.DiffpyStructureParSet.lattice" title="Link to this definition"></a></dt>
+<dd><p>The managed lattice ParameterSet.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DiffpyLatticeParSet</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">&lt;el&gt;&lt;idx&gt;</span></span></dt>
+<dd><p>The managed atom ParameterSets. &lt;el&gt; is the atomic element and
+&lt;idx&gt; is the index of that element in the structure, starting
+from zero. For nickel in P1 symmetry, the managed
+DiffpyAtomParSets are named “Ni0”, “Ni1”, “Ni2” and “Ni3”.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DiffpyAtomParSet</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diffpy.cmistructure.diffpyparset.DiffpyStructureParSet.can_adapt">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">can_adapt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">structure</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/diffpy/cmistructure/diffpyparset.html#DiffpyStructureParSet.can_adapt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#diffpy.cmistructure.diffpyparset.DiffpyStructureParSet.can_adapt" title="Link to this definition"></a></dt>
+<dd><p>Return whether the structure can be adapted by this class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>structure</strong> (<em>object</em>) – The structure object to check.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The flag indicating if <cite>structure</cite> is a diffpy.structure.Structure.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diffpy.cmistructure.diffpyparset.DiffpyStructureParSet.get_lattice">
+<span class="sig-name descname"><span class="pre">get_lattice</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/diffpy/cmistructure/diffpyparset.html#DiffpyStructureParSet.get_lattice"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#diffpy.cmistructure.diffpyparset.DiffpyStructureParSet.get_lattice" title="Link to this definition"></a></dt>
+<dd><p>Return the ParameterSet containing the lattice Parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The lattice ParameterSet of the structure.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>DiffpyLatticeParSet</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diffpy.cmistructure.diffpyparset.DiffpyStructureParSet.get_scatterers">
+<span class="sig-name descname"><span class="pre">get_scatterers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/diffpy/cmistructure/diffpyparset.html#DiffpyStructureParSet.get_scatterers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#diffpy.cmistructure.diffpyparset.DiffpyStructureParSet.get_scatterers" title="Link to this definition"></a></dt>
+<dd><p>Return the list of ParameterSets that represent the
+scatterers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The atom ParameterSets of the structure.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list of DiffpyAtomParSet</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-diffpy.cmistructure.cctbxparset">
+<span id="diffpy-cmistructure-cctbxparset-module"></span><h3>diffpy.cmistructure.cctbxparset module<a class="headerlink" href="#module-diffpy.cmistructure.cctbxparset" title="Link to this heading"></a></h3>
+<p>Wrappers for interfacing cctbx crystal with SrFit.</p>
+<p>This wraps a cctbx.crystal as a ParameterSet with a similar hierarchy, which
+can then be used within a FitRecipe. Note that all manipulations to the
+cctbx.crystal should be done before wrapping. Changes made to the cctbx.crystal
+object after wrapping may not be reflected within the wrapper, which can have
+unpredictable results during a structure refinement.</p>
+<p>The following classes are adapted:</p>
+<ul class="simple">
+<li><p><cite>CCTBXCrystalParSet</cite>: wrapper for <cite>cctbx.crystal</cite>.</p></li>
+<li><p><cite>CCTBXUnitCellParSet</cite>: wrapper for the unit cell of <cite>cctbx.crystal</cite>.</p></li>
+<li><p><cite>CCTBXScattererParSet</cite>: wrapper for <cite>cctbx.xray.scatterer</cite>.</p></li>
+</ul>
+<dl class="py class">
+<dt class="sig sig-object py" id="diffpy.cmistructure.cctbxparset.CCTBXCrystalParSet">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">diffpy.cmistructure.cctbxparset.</span></span><span class="sig-name descname"><span class="pre">CCTBXCrystalParSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">structure</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/diffpy/cmistructure/cctbxparset.html#CCTBXCrystalParSet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#diffpy.cmistructure.cctbxparset.CCTBXCrystalParSet" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#diffpy.cmistructure.basestructureparset.BaseStructureParSet" title="diffpy.cmistructure.basestructureparset.BaseStructureParSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseStructureParSet</span></code></a></p>
+<p>Adapt a cctbx structure to the ParameterSet interface.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="diffpy.cmistructure.cctbxparset.CCTBXCrystalParSet.structure">
+<span class="sig-name descname"><span class="pre">structure</span></span><a class="headerlink" href="#diffpy.cmistructure.cctbxparset.CCTBXCrystalParSet.structure" title="Link to this definition"></a></dt>
+<dd><p>The adapted cctbx structure object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>cctbx.crystal.special_position_settings</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="diffpy.cmistructure.cctbxparset.CCTBXCrystalParSet.scatterers">
+<span class="sig-name descname"><span class="pre">scatterers</span></span><a class="headerlink" href="#diffpy.cmistructure.cctbxparset.CCTBXCrystalParSet.scatterers" title="Link to this definition"></a></dt>
+<dd><p>The scatterer ParameterSets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of <a class="reference internal" href="#diffpy.cmistructure.cctbxparset.CCTBXScattererParSet" title="diffpy.cmistructure.cctbxparset.CCTBXScattererParSet">CCTBXScattererParSet</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="diffpy.cmistructure.cctbxparset.CCTBXCrystalParSet.unitcell">
+<span class="sig-name descname"><span class="pre">unitcell</span></span><a class="headerlink" href="#diffpy.cmistructure.cctbxparset.CCTBXCrystalParSet.unitcell" title="Link to this definition"></a></dt>
+<dd><p>The unit cell ParameterSet for the structure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#diffpy.cmistructure.cctbxparset.CCTBXUnitCellParSet" title="diffpy.cmistructure.cctbxparset.CCTBXUnitCellParSet">CCTBXUnitCellParSet</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diffpy.cmistructure.cctbxparset.CCTBXCrystalParSet.can_adapt">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">can_adapt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">structure</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/diffpy/cmistructure/cctbxparset.html#CCTBXCrystalParSet.can_adapt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#diffpy.cmistructure.cctbxparset.CCTBXCrystalParSet.can_adapt" title="Link to this definition"></a></dt>
+<dd><p>Return whether the structure can be adapted by this class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>structure</strong> (<em>object</em>) – The structure object to check.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The flag indicating if <cite>structure</cite> is a
+cctbx.crystal.special_position_settings. False if cctbx is
+not installed.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diffpy.cmistructure.cctbxparset.CCTBXCrystalParSet.get_lattice">
+<span class="sig-name descname"><span class="pre">get_lattice</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/diffpy/cmistructure/cctbxparset.html#CCTBXCrystalParSet.get_lattice"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#diffpy.cmistructure.cctbxparset.CCTBXCrystalParSet.get_lattice" title="Link to this definition"></a></dt>
+<dd><p>Return the ParameterSet containing the lattice Parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The unit cell ParameterSet of the structure.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#diffpy.cmistructure.cctbxparset.CCTBXUnitCellParSet" title="diffpy.cmistructure.cctbxparset.CCTBXUnitCellParSet">CCTBXUnitCellParSet</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diffpy.cmistructure.cctbxparset.CCTBXCrystalParSet.get_scatterers">
+<span class="sig-name descname"><span class="pre">get_scatterers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/diffpy/cmistructure/cctbxparset.html#CCTBXCrystalParSet.get_scatterers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#diffpy.cmistructure.cctbxparset.CCTBXCrystalParSet.get_scatterers" title="Link to this definition"></a></dt>
+<dd><p>Return the list of ParameterSets that represent the
+scatterers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The scatterer ParameterSets of the structure.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list of <a class="reference internal" href="#diffpy.cmistructure.cctbxparset.CCTBXScattererParSet" title="diffpy.cmistructure.cctbxparset.CCTBXScattererParSet">CCTBXScattererParSet</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diffpy.cmistructure.cctbxparset.CCTBXCrystalParSet.get_space_group">
+<span class="sig-name descname"><span class="pre">get_space_group</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/diffpy/cmistructure/cctbxparset.html#CCTBXCrystalParSet.get_space_group"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#diffpy.cmistructure.cctbxparset.CCTBXCrystalParSet.get_space_group" title="Link to this definition"></a></dt>
+<dd><p>Return the Hermann-Mauguin space group symbol of the
+structure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Hermann-Mauguin space group symbol.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diffpy.cmistructure.cctbxparset.CCTBXCrystalParSet.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/diffpy/cmistructure/cctbxparset.html#CCTBXCrystalParSet.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#diffpy.cmistructure.cctbxparset.CCTBXCrystalParSet.update" title="Link to this definition"></a></dt>
+<dd><p>Rebuild the unit cell after a change in lattice parameters.</p>
+<p>Call this function before using the CCTBXCrystalParSet. The unit
+cell is only remade if a lattice parameter has changed.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="diffpy.cmistructure.cctbxparset.CCTBXScattererParSet">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">diffpy.cmistructure.cctbxparset.</span></span><span class="sig-name descname"><span class="pre">CCTBXScattererParSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">structure_parameter_set</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/diffpy/cmistructure/cctbxparset.html#CCTBXScattererParSet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#diffpy.cmistructure.cctbxparset.CCTBXScattererParSet" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ParameterSet</span></code></p>
+<p>Adapt a cctbx.xray.scatterer to the ParameterSet interface.</p>
+<p>This class derives from ParameterSet.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="diffpy.cmistructure.cctbxparset.CCTBXScattererParSet.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#diffpy.cmistructure.cctbxparset.CCTBXScattererParSet.name" title="Link to this definition"></a></dt>
+<dd><p>The name of the scatterer. The name is always of the form
+“%s%i” % (element, number), where the number is the running
+index of that element type (starting at 0).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">x,</span> <span class="pre">y,</span> <span class="pre">z</span></span></dt>
+<dd><p>The atom position in crystal coordinates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ParameterAdapter</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="diffpy.cmistructure.cctbxparset.CCTBXScattererParSet.occupancy">
+<span class="sig-name descname"><span class="pre">occupancy</span></span><a class="headerlink" href="#diffpy.cmistructure.cctbxparset.CCTBXScattererParSet.occupancy" title="Link to this definition"></a></dt>
+<dd><p>The occupancy of the atom on its crystal location.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ParameterAdapter</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="diffpy.cmistructure.cctbxparset.CCTBXScattererParSet.Uiso">
+<span class="sig-name descname"><span class="pre">Uiso</span></span><a class="headerlink" href="#diffpy.cmistructure.cctbxparset.CCTBXScattererParSet.Uiso" title="Link to this definition"></a></dt>
+<dd><p>The isotropic displacement factor of the atom.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ParameterAdapter</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="diffpy.cmistructure.cctbxparset.CCTBXScattererParSet.element">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">element</span></span><a class="headerlink" href="#diffpy.cmistructure.cctbxparset.CCTBXScattererParSet.element" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="diffpy.cmistructure.cctbxparset.CCTBXUnitCellParSet">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">diffpy.cmistructure.cctbxparset.</span></span><span class="sig-name descname"><span class="pre">CCTBXUnitCellParSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">structure_parameter_set</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/diffpy/cmistructure/cctbxparset.html#CCTBXUnitCellParSet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#diffpy.cmistructure.cctbxparset.CCTBXUnitCellParSet" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ParameterSet</span></code></p>
+<p>Adapt a cctbx unit_cell to the ParameterSet interface.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="diffpy.cmistructure.cctbxparset.CCTBXUnitCellParSet.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#diffpy.cmistructure.cctbxparset.CCTBXUnitCellParSet.name" title="Link to this definition"></a></dt>
+<dd><p>The name of this ParameterSet, always “unitcell”.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">a,</span> <span class="pre">b,</span> <span class="pre">c,</span> <span class="pre">alpha,</span> <span class="pre">beta,</span> <span class="pre">gamma</span></span></dt>
+<dd><p>The unit cell parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ParameterAdapter</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-diffpy.cmistructure.bvsrestraint">
+<span id="diffpy-cmistructure-bvsrestraint-module"></span><h3>diffpy.cmistructure.bvsrestraint module<a class="headerlink" href="#module-diffpy.cmistructure.bvsrestraint" title="Link to this heading"></a></h3>
+<p>Bond-valence sum calculator from SrReal wrapped as a Restraint.</p>
+<p>This can be used as an addition to a cost function during a structure
+refinement to keep the bond-valence sum within tolerable limits.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="diffpy.cmistructure.bvsrestraint.BVSRestraint">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">diffpy.cmistructure.bvsrestraint.</span></span><span class="sig-name descname"><span class="pre">BVSRestraint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameter_set</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sig</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scaled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/diffpy/cmistructure/bvsrestraint.html#BVSRestraint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#diffpy.cmistructure.bvsrestraint.BVSRestraint" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Restraint</span></code></p>
+<p>Wrapping of BVSCalculator.bvmsdiff as a Restraint.</p>
+<p>The restraint penalty is the root-mean-square deviation of the theoretical
+and calculated bond-valence sum of a structure.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="diffpy.cmistructure.bvsrestraint.BVSRestraint._calc">
+<span class="sig-name descname"><span class="pre">_calc</span></span><a class="headerlink" href="#diffpy.cmistructure.bvsrestraint.BVSRestraint._calc" title="Link to this definition"></a></dt>
+<dd><p>The SrReal BVSCalculator instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>BVSCalculator</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="diffpy.cmistructure.bvsrestraint.BVSRestraint._parameter_set">
+<span class="sig-name descname"><span class="pre">_parameter_set</span></span><a class="headerlink" href="#diffpy.cmistructure.bvsrestraint.BVSRestraint._parameter_set" title="Link to this definition"></a></dt>
+<dd><p>The SrRealParSet that created this BVSRestraint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#diffpy.cmistructure.srrealparset.SrRealParSet" title="diffpy.cmistructure.srrealparset.SrRealParSet">SrRealParSet</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="diffpy.cmistructure.bvsrestraint.BVSRestraint.sig">
+<span class="sig-name descname"><span class="pre">sig</span></span><a class="headerlink" href="#diffpy.cmistructure.bvsrestraint.BVSRestraint.sig" title="Link to this definition"></a></dt>
+<dd><p>The uncertainty on the BVS (default 1).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="diffpy.cmistructure.bvsrestraint.BVSRestraint.scaled">
+<span class="sig-name descname"><span class="pre">scaled</span></span><a class="headerlink" href="#diffpy.cmistructure.bvsrestraint.BVSRestraint.scaled" title="Link to this definition"></a></dt>
+<dd><p>The flag indicating if the restraint is scaled (multiplied)
+by the unrestrained point-average chi^2 (chi^2/numpoints)
+(default False).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="diffpy.cmistructure.bvsrestraint.BVSRestraint.penalty">
+<span class="sig-name descname"><span class="pre">penalty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">w</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/diffpy/cmistructure/bvsrestraint.html#BVSRestraint.penalty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#diffpy.cmistructure.bvsrestraint.BVSRestraint.penalty" title="Link to this definition"></a></dt>
+<dd><p>Calculate the penalty of the restraint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>w</strong> (<em>float</em><em>, </em><em>optional</em>) – The point-average chi^2 which is optionally used to scale the
+penalty (default 1.0).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The bond-valence penalty.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-diffpy.cmistructure.sgconstraints">
+<span id="diffpy-cmistructure-sgconstraints-module"></span><h3>diffpy.cmistructure.sgconstraints module<a class="headerlink" href="#module-diffpy.cmistructure.sgconstraints" title="Link to this heading"></a></h3>
+<p>Code to set space group constraints for a crystal structure.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="diffpy.cmistructure.sgconstraints.constrain_as_space_group">
+<span class="sig-prename descclassname"><span class="pre">diffpy.cmistructure.sgconstraints.</span></span><span class="sig-name descname"><span class="pre">constrain_as_space_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phase</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spacegroup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scatterers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sgoffset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0,</span> <span class="pre">0,</span> <span class="pre">0]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constrainlat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constrainadps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">adpsymbols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isosymbol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Uiso'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/diffpy/cmistructure/sgconstraints.html#constrain_as_space_group"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#diffpy.cmistructure.sgconstraints.constrain_as_space_group" title="Link to this definition"></a></dt>
+<dd><p>Constrain a P1 structure to a space group.</p>
+<p>This applies space group constraints to a structure ParameterSet with
+P1 symmetry. The passed scatterers are explicitly constrained to the
+specified space group, and the ADPs and lattice may be constrained as
+well. New Parameters used in the constraints are created within the
+returned SpaceGroupParameters object. Constraints are created in the
+ParameterSet that contains the constrained Parameter. This erases any
+constraints or constant flags on the scatterers, lattice or ADPs that
+are to be constrained.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>phase</strong> (<a class="reference internal" href="#diffpy.cmistructure.basestructureparset.BaseStructureParSet" title="diffpy.cmistructure.basestructureparset.BaseStructureParSet"><em>BaseStructureParSet</em></a><em> or </em><em>object with a .phase attribute</em>) – The structure ParameterSet to constrain, or a generator such as a
+PDFGenerator whose <code class="docutils literal notranslate"><span class="pre">.phase</span></code> is the structure ParameterSet.</p></li>
+<li><p><strong>spacegroup</strong> (<em>int</em><em>, </em><em>str</em><em> or </em><em>diffpy.structure.spacegroups.SpaceGroup</em>) – The space group number, symbol or SpaceGroup instance.</p></li>
+<li><p><strong>scatterers</strong> (<em>list</em><em> of </em><em>ParameterSet</em><em>, </em><em>optional</em>) – The scatterer ParameterSets to constrain. If None (default), all
+scatterers returned by <code class="docutils literal notranslate"><span class="pre">phase.get_scatterers()</span></code> are constrained.</p></li>
+<li><p><strong>sgoffset</strong> (<em>list</em><em> of </em><em>float</em><em>, </em><em>optional</em>) – The offset of the space group origin (default [0, 0, 0]).</p></li>
+<li><p><strong>constrainlat</strong> (<em>bool</em><em>, </em><em>optional</em>) – The flag indicating whether to constrain the lattice (default
+True).</p></li>
+<li><p><strong>constrainadps</strong> (<em>bool</em><em>, </em><em>optional</em>) – The flag indicating whether to constrain the ADPs (default True).</p></li>
+<li><p><strong>adpsymbols</strong> (<em>list</em><em> of </em><em>str</em><em>, </em><em>optional</em>) – The ADP names. By default this is
+diffpy.structure.symmetryutilities.stdUsymbols (U11, U22, etc.).
+The names must be given in the same order as stdUsymbols.</p></li>
+<li><p><strong>isosymbol</strong> (<em>str</em><em>, </em><em>optional</em>) – The name of the isotropic ADP (default “Uiso”). If None,
+isotropic ADPs are constrained via the anisotropic ADPs.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The free Parameters of the structure that remain after applying
+the space group constraints.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>SpaceGroupParameters</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The lattice constraints are applied as follows.</p>
+<dl class="simple">
+<dt>Triclinic</dt><dd><p>No constraints.</p>
+</dd>
+<dt>Monoclinic</dt><dd><p>alpha and beta are fixed to 90 unless alpha != beta and
+alpha == gamma, in which case alpha and gamma are fixed to 90.</p>
+</dd>
+<dt>Orthorhombic</dt><dd><p>alpha, beta and gamma are fixed to 90.</p>
+</dd>
+<dt>Tetragonal</dt><dd><p>b is constrained to a and alpha, beta and gamma are fixed to 90.</p>
+</dd>
+<dt>Trigonal</dt><dd><p>If gamma == 120, then b is constrained to a, alpha and beta are
+fixed to 90 and gamma is fixed to 120. Otherwise, b and c are
+constrained to a, and beta and gamma are fixed to alpha.</p>
+</dd>
+<dt>Hexagonal</dt><dd><p>b is constrained to a, alpha and beta are fixed to 90 and gamma
+is fixed to 120.</p>
+</dd>
+<dt>Cubic</dt><dd><p>b and c are constrained to a, and alpha, beta and gamma are fixed
+to 90.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>TypeError</strong> – If <code class="docutils literal notranslate"><span class="pre">phase</span></code> is neither a structure ParameterSet nor an object
+    whose <code class="docutils literal notranslate"><span class="pre">.phase</span></code> is one.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../getting-started.html" class="btn btn-neutral float-left" title="Getting started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../release.html" class="btn btn-neutral float-right" title="Release notes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Contributors to diffpy.cmistructure.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
