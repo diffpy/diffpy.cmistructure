@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>diffpy.cmistructure documentation &mdash; diffpy.cmistructure 0.1.0 documentation</title>
+  <title>diffpy.cmistructure documentation &mdash; diffpy.cmistructure 0.1.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=38b66d78"></script>
+      <script src="_static/documentation_options.js?v=91f6191e"></script>
       <script src="_static/doctools.js?v=fd6eb6e6"></script>
       <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -22,7 +22,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Getting started" href="getting-started.html" /> 
+    <link rel="next" title="Migrating from diffpy.srfit.structure" href="migrating-from-srfit.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -45,7 +45,8 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="migrating-from-srfit.html">Migrating from <code class="docutils literal notranslate"><span class="pre">diffpy.srfit.structure</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="making-a-structure-adapter.html">Making a structure adapter</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/diffpy.cmistructure.html">Package API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="release.html">Release notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
@@ -79,14 +80,9 @@
 <h1>diffpy.cmistructure documentation<a class="headerlink" href="#title" title="Link to this heading"></a></h1>
 <p><code class="docutils literal notranslate"><span class="pre">diffpy.cmistructure</span></code> - diffpy.cmi package for doing refinements with structure objects</p>
 <div class="line-block">
-<div class="line">Software version 0.1.0</div>
-<div class="line">Last updated October 19, 2026.</div>
+<div class="line">Software version 0.1.1</div>
+<div class="line">Last updated October 27, 2026.</div>
 </div>
-<section id="getting-started">
-<h2>Getting started<a class="headerlink" href="#getting-started" title="Link to this heading"></a></h2>
-<p>Welcome to the <code class="docutils literal notranslate"><span class="pre">diffpy.cmistructure</span></code> documentation!</p>
-<p>To get started, please visit the <a class="reference internal" href="getting-started.html#getting-started"><span class="std std-ref">Getting started</span></a> page.</p>
-</section>
 <section id="authors">
 <h2>Authors<a class="headerlink" href="#authors" title="Link to this heading"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">diffpy.cmistructure</span></code> is developed by Members of the diffpy community. This project is maintained by Simon Billinge. For a detailed list of contributors see
@@ -105,12 +101,21 @@ file included with the distribution.</p>
 <h2>Table of contents<a class="headerlink" href="#table-of-contents" title="Link to this heading"></a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting started</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="getting-started.html#reuse-rst-files-across-multiple-pages">Reuse <code class="docutils literal notranslate"><span class="pre">.rst</span></code> files across multiple pages</a></li>
-<li class="toctree-l2"><a class="reference internal" href="getting-started.html#refer-to-a-specific-section-in-the-documentation">Refer to a specific section in the documentation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="getting-started.html#embed-your-code-snippets-in-the-documentation">Embed your code snippets in the documentation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="getting-started.html#attach-an-image-to-the-documentation">Attach an image to the documentation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="getting-started.html#other-useful-directives">Other useful directives</a></li>
+<li class="toctree-l1"><a class="reference internal" href="migrating-from-srfit.html">Migrating from <code class="docutils literal notranslate"><span class="pre">diffpy.srfit.structure</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="migrating-from-srfit.html#update-your-imports">Update your imports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="migrating-from-srfit.html#constrain-as-space-group-accepts-a-generator"><code class="docutils literal notranslate"><span class="pre">constrain_as_space_group</span></code> accepts a generator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="migrating-from-srfit.html#what-has-not-changed">What has not changed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="migrating-from-srfit.html#renamed-functions-and-methods">Renamed functions and methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="migrating-from-srfit.html#renamed-attributes">Renamed attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="migrating-from-srfit.html#renamed-arguments">Renamed arguments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="making-a-structure-adapter.html">Making a structure adapter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="making-a-structure-adapter.html#what-an-adapter-must-provide">What an adapter must provide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="making-a-structure-adapter.html#example-adapting-a-simple-crystal-class">Example: adapting a simple crystal class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="making-a-structure-adapter.html#use-the-adapter">Use the adapter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="making-a-structure-adapter.html#add-the-adapter-to-structure-to-parameter-set">Add the adapter to <code class="docutils literal notranslate"><span class="pre">structure_to_parameter_set</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="making-a-structure-adapter.html#checklist">Checklist</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api/diffpy.cmistructure.html">Package API</a><ul>
@@ -120,11 +125,14 @@ file included with the distribution.</p>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="release.html">Release notes</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="release.html#id1">0.1.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release.html#id1">0.1.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release.html#id2">0.1.0</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="license.html#open-source-license-agreement">OPEN SOURCE LICENSE AGREEMENT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="license.html#software-license-agreement">SOFTWARE LICENSE AGREEMENT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="license.html#brookhaven-national-laboratory-notice">Brookhaven National Laboratory Notice</a></li>
 </ul>
 </li>
 </ul>
@@ -143,7 +151,7 @@ file included with the distribution.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="getting-started.html" class="btn btn-neutral float-right" title="Getting started" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="migrating-from-srfit.html" class="btn btn-neutral float-right" title="Migrating from diffpy.srfit.structure" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

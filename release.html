@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Release notes &mdash; diffpy.cmistructure 0.1.0 documentation</title>
+  <title>Release notes &mdash; diffpy.cmistructure 0.1.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=38b66d78"></script>
+      <script src="_static/documentation_options.js?v=91f6191e"></script>
       <script src="_static/doctools.js?v=fd6eb6e6"></script>
       <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -46,10 +46,12 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="migrating-from-srfit.html">Migrating from <code class="docutils literal notranslate"><span class="pre">diffpy.srfit.structure</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="making-a-structure-adapter.html">Making a structure adapter</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/diffpy.cmistructure.html">Package API</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Release notes</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id1">0.1.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">0.1.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">0.1.0</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
@@ -82,7 +84,29 @@
   <section id="release-notes">
 <span id="index-0"></span><h1>Release notes<a class="headerlink" href="#release-notes" title="Link to this heading"></a></h1>
 <section id="id1">
-<h2>0.1.0<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<h2>0.1.1<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p><strong>Added:</strong></p>
+<ul class="simple">
+<li><p>A “Migrating from diffpy.srfit.structure” documentation page that lists every renamed function, method, attribute and argument.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">npintensity.py</span></code> and <code class="docutils literal notranslate"><span class="pre">npintensityII.py</span></code> examples from diffpy.srfit, updated to the diffpy.cmistructure names.</p></li>
+<li><p>A “Making a structure adapter” documentation page that explains how to adapt another structure representation for use with diffpy.cmistructure.</p></li>
+</ul>
+<p><strong>Changed:</strong></p>
+<ul class="simple">
+<li><p>Use the same license as <code class="docutils literal notranslate"><span class="pre">diffpy.srfit</span></code>: <code class="docutils literal notranslate"><span class="pre">LICENSE.rst</span></code>, the documentation License page and the <code class="docutils literal notranslate"><span class="pre">License</span> <span class="pre">::</span> <span class="pre">Free</span> <span class="pre">To</span> <span class="pre">Use</span> <span class="pre">But</span> <span class="pre">Restricted</span></code> classifier now match it.</p></li>
+<li><p>Update Simon Billinge’s contact email in <code class="docutils literal notranslate"><span class="pre">LICENSE_DANSE.rst</span></code>.</p></li>
+</ul>
+<p><strong>Fixed:</strong></p>
+<ul class="simple">
+<li><p>Require <code class="docutils literal notranslate"><span class="pre">diffpy.srfit</span></code> 3.4.0 or later. Older versions lack the methods diffpy.cmistructure calls, so installing it next to <code class="docutils literal notranslate"><span class="pre">diffpy.srfit</span></code> 3.3.1 failed at run time.</p></li>
+</ul>
+<p><strong>Removed:</strong></p>
+<ul class="simple">
+<li><p>Support for Python 3.11. <code class="docutils literal notranslate"><span class="pre">diffpy.srfit</span></code> 3.4.0, which diffpy.cmistructure requires, needs Python 3.12 or later.</p></li>
+</ul>
+</section>
+<section id="id2">
+<h2>0.1.0<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
 <p><strong>Added:</strong></p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">constrain_as_space_group</span></code> also accepts a generator, such as a <code class="docutils literal notranslate"><span class="pre">PDFGenerator</span></code>, whose <code class="docutils literal notranslate"><span class="pre">.phase</span></code> is the structure parameter set, for example <code class="docutils literal notranslate"><span class="pre">constrain_as_space_group(generator,</span> <span class="pre">&quot;Fm-3m&quot;)</span></code>.</p></li>

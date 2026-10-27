@@ -1,0 +1,360 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Migrating from diffpy.srfit.structure &mdash; diffpy.cmistructure 0.1.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=91f6191e"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=cca77546"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Making a structure adapter" href="making-a-structure-adapter.html" />
+    <link rel="prev" title="diffpy.cmistructure documentation" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            diffpy.cmistructure
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Migrating from <code class="docutils literal notranslate"><span class="pre">diffpy.srfit.structure</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#update-your-imports">Update your imports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#constrain-as-space-group-accepts-a-generator"><code class="docutils literal notranslate"><span class="pre">constrain_as_space_group</span></code> accepts a generator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-has-not-changed">What has not changed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#renamed-functions-and-methods">Renamed functions and methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#renamed-attributes">Renamed attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#renamed-arguments">Renamed arguments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="making-a-structure-adapter.html">Making a structure adapter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/diffpy.cmistructure.html">Package API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="release.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">diffpy.cmistructure</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Migrating from <code class="docutils literal notranslate"><span class="pre">diffpy.srfit.structure</span></code></li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/diffpy/diffpy.cmistructure/blob/main/docs/source/migrating-from-srfit.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="migrating-from-diffpy-srfit-structure">
+<span id="migrating-from-srfit"></span><span id="index-0"></span><h1>Migrating from <code class="docutils literal notranslate"><span class="pre">diffpy.srfit.structure</span></code><a class="headerlink" href="#migrating-from-diffpy-srfit-structure" title="Link to this heading"></a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">diffpy.cmistructure</span></code> holds the code that used to live in
+<code class="docutils literal notranslate"><span class="pre">diffpy.srfit.structure</span></code>. The behavior is the same, but the names follow
+the Python style: camelCase methods are now snake_case, and abbreviated
+attribute and argument names are spelled out.</p>
+<p><code class="docutils literal notranslate"><span class="pre">diffpy.srfit</span></code> 3.5.0 warns when you use an old method or attribute and names
+its replacement. <strong>Renamed function arguments can’t be warned about</strong>, so check
+the <a class="reference internal" href="#renamed-arguments"><span class="std std-ref">Renamed arguments</span></a> table if your script passes arguments by keyword.</p>
+<section id="update-your-imports">
+<h2>Update your imports<a class="headerlink" href="#update-your-imports" title="Link to this heading"></a></h2>
+<p>Replace <code class="docutils literal notranslate"><span class="pre">diffpy.srfit.structure</span></code> with <code class="docutils literal notranslate"><span class="pre">diffpy.cmistructure</span></code>. The module
+names are unchanged:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Before</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">diffpy.srfit.structure</span><span class="w"> </span><span class="kn">import</span> <span class="n">constrainAsSpaceGroup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">diffpy.srfit.structure.objcrystparset</span><span class="w"> </span><span class="kn">import</span> <span class="n">ObjCrystCrystalParSet</span>
+
+<span class="c1"># After</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">diffpy.cmistructure</span><span class="w"> </span><span class="kn">import</span> <span class="n">constrain_as_space_group</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">diffpy.cmistructure.objcrystparset</span><span class="w"> </span><span class="kn">import</span> <span class="n">ObjCrystCrystalParSet</span>
+</pre></div>
+</div>
+</section>
+<section id="constrain-as-space-group-accepts-a-generator">
+<h2><code class="docutils literal notranslate"><span class="pre">constrain_as_space_group</span></code> accepts a generator<a class="headerlink" href="#constrain-as-space-group-accepts-a-generator" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">constrain_as_space_group</span></code> now also accepts a generator, such as a
+<code class="docutils literal notranslate"><span class="pre">PDFGenerator</span></code>, in place of its <code class="docutils literal notranslate"><span class="pre">.phase</span></code>. Both of these calls work:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">constrain_as_space_group</span><span class="p">(</span><span class="n">generator</span><span class="o">.</span><span class="n">phase</span><span class="p">,</span> <span class="s2">"Fm-3m"</span><span class="p">)</span>
+<span class="n">constrain_as_space_group</span><span class="p">(</span><span class="n">generator</span><span class="p">,</span> <span class="s2">"Fm-3m"</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Anything that is neither a structure parameter set nor an object with one as
+its <code class="docutils literal notranslate"><span class="pre">.phase</span></code> raises a <code class="docutils literal notranslate"><span class="pre">TypeError</span></code>.</p>
+</section>
+<section id="what-has-not-changed">
+<h2>What has not changed<a class="headerlink" href="#what-has-not-changed" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Class names, such as <code class="docutils literal notranslate"><span class="pre">DiffpyStructureParSet</span></code> and
+<code class="docutils literal notranslate"><span class="pre">ObjCrystCrystalParSet</span></code>.</p></li>
+<li><p>The space group containers <code class="docutils literal notranslate"><span class="pre">.sgpars</span></code>, <code class="docutils literal notranslate"><span class="pre">.latpars</span></code>, <code class="docutils literal notranslate"><span class="pre">.xyzpars</span></code> and
+<code class="docutils literal notranslate"><span class="pre">.adppars</span></code>. They also name Parameters in fit results, for example
+<code class="docutils literal notranslate"><span class="pre">sgpars.latpars.a</span></code>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">constrainadps</span></code> and <code class="docutils literal notranslate"><span class="pre">periodic</span></code> keyword arguments.</p></li>
+</ul>
+</section>
+<section id="renamed-functions-and-methods">
+<h2>Renamed functions and methods<a class="headerlink" href="#renamed-functions-and-methods" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>diffpy.srfit.structure</p></th>
+<th class="head"><p>diffpy.cmistructure</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">struToParameterSet(name,</span> <span class="pre">stru)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">structure_to_parameter_set(name,</span> <span class="pre">structure)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">constrainAsSpaceGroup</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">constrain_as_space_group</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">canAdapt</span></code> (all adapters)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">can_adapt</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">getLattice</span></code> (all adapters)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">get_lattice</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">getScatterers</span></code> (all adapters)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">get_scatterers</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CCTBXCrystalParSet.getSpaceGroup</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">get_space_group</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SrRealParSet.restrainBVS</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">restrain_bvs</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">useSymmetry</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">use_symmetry</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">usingSymmetry</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">using_symmetry</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">isDummy</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">is_dummy</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ObjCrystScattererParSet.hasScatterers</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">has_scatterers</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ObjCrystMoleculeParSet.wrapRestraints</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wrap_restraints</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ObjCrystMoleculeParSet.wrapStretchModeParameters</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wrap_stretch_mode_parameters</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ObjCrystMoleculeParSet.restrainBondLength</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">restrain_bond_length</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ObjCrystMoleculeParSet.restrainBondLengthParameter</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">restrain_bond_length_parameter</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ObjCrystMoleculeParSet.restrainBondAngle</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">restrain_bond_angle</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ObjCrystMoleculeParSet.restrainBondAngleParameter</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">restrain_bond_angle_parameter</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ObjCrystMoleculeParSet.restrainDihedralAngle</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">restrain_dihedral_angle</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ObjCrystMoleculeParSet.restrainDihedralAngleParameter</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">restrain_dihedral_angle_parameter</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ObjCrystMoleculeParSet.addBondLengthParameter</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">add_bond_length_parameter</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ObjCrystMoleculeParSet.addBondAngleParameter</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">add_bond_angle_parameter</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ObjCrystMoleculeParSet.addDihedralAngleParameter</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">add_dihedral_angle_parameter</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">StretchModeParameter.addAtoms</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">add_atoms</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">setConst</span></code> on the bond length, bond angle and dihedral angle
+Parameters</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">set_constant</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">BaseSpaceGroupParameters.addParameter</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">add_parameter</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="renamed-attributes">
+<h2>Renamed attributes<a class="headerlink" href="#renamed-attributes" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Class</p></th>
+<th class="head"><p>diffpy.srfit.structure</p></th>
+<th class="head"><p>diffpy.cmistructure</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SrRealParSet</span></code>, <code class="docutils literal notranslate"><span class="pre">DiffpyStructureParSet</span></code>,
+<code class="docutils literal notranslate"><span class="pre">ObjCrystCrystalParSet</span></code>, <code class="docutils literal notranslate"><span class="pre">ObjCrystMoleculeParSet</span></code>,
+<code class="docutils literal notranslate"><span class="pre">CCTBXCrystalParSet</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.stru</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.structure</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">DiffpyLatticeParSet</span></code>, <code class="docutils literal notranslate"><span class="pre">ObjCrystCrystalParSet</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.angunits</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.angle_units</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ObjCrystScattererParSet</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.scat</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.scatterer</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ObjCrystMoleculeRestraint</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.res</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.restraint</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Bond length, bond angle and dihedral angle Parameters</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.matoms</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.mutated_atoms</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">SpaceGroupParameters</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.sg</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.space_group</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CCTBXScattererParSet</span></code>, <code class="docutils literal notranslate"><span class="pre">CCTBXUnitCellParSet</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.strups</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.structure_parameter_set</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CCTBXScattererParSet</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.idx</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.index</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="renamed-arguments">
+<span id="id1"></span><h2>Renamed arguments<a class="headerlink" href="#renamed-arguments" title="Link to this heading"></a></h2>
+<p>These only matter if you pass the argument by keyword. Positional calls keep
+working, because no argument has moved.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Function or class</p></th>
+<th class="head"><p>diffpy.srfit.structure</p></th>
+<th class="head"><p>diffpy.cmistructure</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">structure_to_parameter_set</span></code>, <code class="docutils literal notranslate"><span class="pre">can_adapt</span></code>,
+<code class="docutils literal notranslate"><span class="pre">DiffpyStructureParSet</span></code>, <code class="docutils literal notranslate"><span class="pre">CCTBXCrystalParSet</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">stru</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">structure</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ObjCrystCrystalParSet</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cryst</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">crystal</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ObjCrystScattererParSet</span></code>, <code class="docutils literal notranslate"><span class="pre">ObjCrystMolAtomParSet</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">scat</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">scatterer</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ObjCrystMoleculeRestraint</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">res</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">restraint</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">BVSRestraint</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">parset</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">parameter_set</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CCTBXScattererParSet</span></code>, <code class="docutils literal notranslate"><span class="pre">CCTBXUnitCellParSet</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">strups</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">structure_parameter_set</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CCTBXScattererParSet</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">idx</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">index</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">SpaceGroupParameters</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sg</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">space_group</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">restrain_bond_length_parameter</span></code>,
+<code class="docutils literal notranslate"><span class="pre">restrain_bond_angle_parameter</span></code>,
+<code class="docutils literal notranslate"><span class="pre">restrain_dihedral_angle_parameter</span></code>,
+<code class="docutils literal notranslate"><span class="pre">BaseSpaceGroupParameters.add_parameter</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">par</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">parameter</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">StretchModeParameter.set_value</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">val</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">value</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="diffpy.cmistructure documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="making-a-structure-adapter.html" class="btn btn-neutral float-right" title="Making a structure adapter" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Contributors to diffpy.cmistructure.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
