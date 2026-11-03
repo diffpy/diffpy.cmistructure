@@ -38,17 +38,19 @@ def create_crystal_from_structure(structure, space_group):
     a count, such as La1 or O2.
 
     The space group is read by ObjCryst, which takes Hermann-Mauguin
-    symbols with or without spaces, such as "P b n m" or "Pbnm". For a
-    space group with two origin choices, ObjCryst uses origin choice 2
-    unless another is given after a colon, such as "F d -3 m:1". Give "P1"
-    to keep every atom of the cell.
+    symbols with or without spaces, such as "P b n m" or "Pbnm", and space
+    group numbers, such as 62. A number gives the standard setting, so 62
+    is "P n m a", not "P b n m". For a space group with two origin choices,
+    ObjCryst uses origin choice 2 unless another is given after a colon,
+    such as "F d -3 m:1". Give "P1" to keep every atom of the cell.
 
     Parameters
     ----------
     structure : diffpy.structure.Structure
         The structure to convert, holding the full unit cell.
-    space_group : str
-        The space group of the structure, as a Hermann-Mauguin symbol.
+    space_group : str or int
+        The space group of the structure, as a Hermann-Mauguin symbol or a
+        space group number.
 
     Returns
     -------
@@ -78,12 +80,13 @@ def create_crystal_from_structure(structure, space_group):
             numpy.radians(lattice.alpha),
             numpy.radians(lattice.beta),
             numpy.radians(lattice.gamma),
-            space_group,
+            str(space_group),
         )
     except ValueError:
         raise ValueError(
-            f"{space_group!r} is not a space group symbol. Please give a "
-            "Hermann-Mauguin symbol, such as 'P b n m' or 'Pbnm'."
+            f"{space_group!r} is not a space group symbol or number. "
+            "Please give a Hermann-Mauguin symbol, such as 'P b n m', or a "
+            "number from 1 to 230."
         ) from None
     # ObjCryst silently changes a cell that doesn't fit the space group
     crystal_cell_parameters = [

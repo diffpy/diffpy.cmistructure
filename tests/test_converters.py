@@ -160,6 +160,24 @@ def test_create_crystal_from_structure_in_p1():
             "F d -3 m:2",
             [0.125, 0.125, 0.125],
         ),
+        # C3: A user gives the space group number, 227, instead of the
+        # symbol.
+        # Expected: The number is read as "F d -3 m" with ObjCryst's default
+        # origin choice 2, as in C2.
+        (
+            "silicon_origin_2_structure",
+            227,
+            "F d -3 m:2",
+            [0.125, 0.125, 0.125],
+        ),
+        # C4: A user gives the space group number as text, "227".
+        # Expected: The crystal is the same as in C3.
+        (
+            "silicon_origin_2_structure",
+            "227",
+            "F d -3 m:2",
+            [0.125, 0.125, 0.125],
+        ),
     ],
 )
 def test_create_crystal_from_structure_with_origin_choice(
@@ -224,16 +242,27 @@ def test_create_crystal_from_structure_with_space_group_not_fitting(
         create_crystal_from_structure(structure, space_group)
 
 
+@pytest.mark.parametrize(
+    "space_group, space_group_in_message",
+    [
+        # Test giving a space group that ObjCryst does not recognize
+        # C1: A user mistypes the space group symbol as "Pbnm2".
+        # Expected: A ValueError names the symbol and says how to give a
+        # space group.
+        ("Pbnm2", "'Pbnm2'"),
+        # C2: A user gives 231, which is not a space group number.
+        # Expected: A ValueError names the number and says how to give a
+        # space group.
+        (231, "231"),
+    ],
+)
 def test_create_crystal_from_structure_with_unknown_space_group(
-    lamno3_p1_structure,
+    lamno3_p1_structure, space_group, space_group_in_message
 ):
-    # Test giving a space group symbol that ObjCryst does not recognize
-    # C1: A user mistypes the space group as "Pbnm2".
-    # Expected: A ValueError names the symbol and says how to give a space
-    # group.
     expected_msg = (
-        "'Pbnm2' is not a space group symbol. Please give a "
-        "Hermann-Mauguin symbol, such as 'P b n m' or 'Pbnm'."
+        f"{space_group_in_message} is not a space group symbol or number. "
+        "Please give a Hermann-Mauguin symbol, such as 'P b n m', or a "
+        "number from 1 to 230."
     )
     with pytest.raises(ValueError, match=re.escape(expected_msg)):
-        create_crystal_from_structure(lamno3_p1_structure, "Pbnm2")
+        create_crystal_from_structure(lamno3_p1_structure, space_group)
