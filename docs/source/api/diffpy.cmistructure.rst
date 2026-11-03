@@ -66,3 +66,11 @@ diffpy.cmistructure.sgconstraints module
     :members:
     :undoc-members:
     :show-inheritance:
+
+diffpy.cmistructure.converters module
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. automodule:: diffpy.cmistructure.converters
+    :members:
+    :undoc-members:
+    :show-inheritance:

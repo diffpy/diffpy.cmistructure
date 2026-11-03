@@ -12,7 +12,7 @@ from pyobjcryst.molecule import Molecule
 from pyobjcryst.scatteringpower import ScatteringPowerAtom
 
 from diffpy.cmistructure.diffpyparset import DiffpyStructureParSet
-from diffpy.structure import Structure
+from diffpy.structure import Lattice, Structure
 
 C60_XYZ = """\
 3.451266498   0.685000000   0.000000000
@@ -133,6 +133,54 @@ def lamno3_p1_structure(datafile):
     """Return the full LaMnO3 unit cell in P1 as a diffpy Structure."""
     structure = Structure()
     structure.read(datafile("LaMnO3.stru"))
+    return structure
+
+
+@pytest.fixture
+def lamno3_asymmetric_unit_structure(lamno3_p1_structure):
+    """Return the four atoms of the LaMnO3 asymmetric unit in Pbnm,
+    without the rest of the cell, as a diffpy Structure."""
+    structure = lamno3_p1_structure[[0, 4, 8, 12]]
+    return structure
+
+
+@pytest.fixture
+def silicon_origin_1_structure():
+    """Return the full silicon unit cell, with an atom at the origin, as
+    a diffpy Structure."""
+    structure = Structure(lattice=Lattice(5.431, 5.431, 5.431, 90, 90, 90))
+    positions = [
+        [0.0, 0.0, 0.0],
+        [0.0, 0.5, 0.5],
+        [0.5, 0.0, 0.5],
+        [0.5, 0.5, 0.0],
+        [0.25, 0.25, 0.25],
+        [0.25, 0.75, 0.75],
+        [0.75, 0.25, 0.75],
+        [0.75, 0.75, 0.25],
+    ]
+    for xyz in positions:
+        structure.add_new_atom("Si", xyz=xyz)
+    return structure
+
+
+@pytest.fixture
+def silicon_origin_2_structure():
+    """Return the full silicon unit cell, with the origin midway between
+    two bonded atoms, as a diffpy Structure."""
+    structure = Structure(lattice=Lattice(5.431, 5.431, 5.431, 90, 90, 90))
+    positions = [
+        [0.125, 0.125, 0.125],
+        [0.125, 0.625, 0.625],
+        [0.625, 0.125, 0.625],
+        [0.625, 0.625, 0.125],
+        [0.875, 0.875, 0.875],
+        [0.875, 0.375, 0.375],
+        [0.375, 0.875, 0.375],
+        [0.375, 0.375, 0.875],
+    ]
+    for xyz in positions:
+        structure.add_new_atom("Si", xyz=xyz)
     return structure
 
 
